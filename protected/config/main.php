@@ -9,15 +9,22 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'SAPP',
 	'defaultController'=>'Usuario',
-	'sourceLanguage' => 'es',
     'language'=>'es',
+	'sourceLanguage' => 'es',
+    'charset'=>'utf-8',
 	// preloading 'log' component
 	'preload'=>array('log'),
-
+	'aliases' => array(
+    	'bootstrap' => 'ext.bootstrap',
+	),
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		//Yii-Bootstrap
+	    'bootstrap.behaviors.*',
+	    'bootstrap.helpers.*',
+	    'bootstrap.widgets.*'
 	),
 
 	'modules'=>array(
@@ -28,6 +35,8 @@ return array(
 			'password'=>'123456',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
+			////Yii-Bootstrap
+			'generatorPaths' => array('bootstrap.gii'),
 		),
 
 	),
@@ -73,6 +82,7 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
+
 				// uncomment the following to show log messages on web pages
 				/*
 				array(
@@ -80,6 +90,9 @@ return array(
 				),
 				*/
 			),
+		),
+		'bootstrap' => array(
+			'class' => 'bootstrap.components.BsApi'
 		),
 	),
 
