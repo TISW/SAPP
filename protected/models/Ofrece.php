@@ -35,7 +35,6 @@ class Ofrece extends CActiveRecord
 		return array(
 			array('CAR_CODIGO, NOT_ID, OFR_INICIO, OFR_TERMINO, OFR_ESTADO', 'required'),
 			array('CAR_CODIGO, NOT_ID', 'length', 'max'=>10),
-			array('OFR_ESTADO', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('OFR_ID, CAR_CODIGO, NOT_ID, OFR_INICIO, OFR_TERMINO, OFR_ESTADO', 'safe', 'on'=>'search'),
@@ -62,11 +61,11 @@ class Ofrece extends CActiveRecord
 	{
 		return array(
 			'OFR_ID' => 'Ofr',
-			'CAR_CODIGO' => 'Car Codigo',
-			'NOT_ID' => 'Not',
-			'OFR_INICIO' => 'Ofr Inicio',
-			'OFR_TERMINO' => 'Ofr Termino',
-			'OFR_ESTADO' => 'Ofr Estado',
+			'CAR_CODIGO' => 'Carrera',
+			'NOT_ID' => 'Noticia',
+			'OFR_INICIO' => 'Fecha Inicio',
+			'OFR_TERMINO' => 'Fecha Termino',
+			'OFR_ESTADO' => 'Estado',
 		);
 	}
 

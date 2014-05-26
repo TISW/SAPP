@@ -73,18 +73,22 @@ $(document).ready(function(){
       <div class="panel-body">
         <div class="bs-example bs-example-tabs">
           <ul id="myTab" class="nav nav-tabs">
-            <li class="active"><a href="#home" data-toggle="tab">Requerimientos Práctica 1</a></li>
-            <li><a href="#profile" data-toggle="tab">Requerimientos Práctica 2</a></li>
+            <li class="active"><a href="#rec1" data-toggle="tab">Requerimientos Práctica 1</a></li>
+            <li><a href="#Rec2" data-toggle="tab">Requerimientos Práctica 2</a></li>
             <li class="dropdown">
               <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">Carrera <b class="caret"></b></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
-                <li><a href="#dropdown1" tabindex="-1" data-toggle="tab">IECI</a></li>
-                <li><a href="#dropdown2" tabindex="-1" data-toggle="tab">ICINF</a></li>
+                <?php 
+                $data=NotPresentacion::model()->findAll(array('select'=>'CAR_SIGLA','distinct'=>true,));
+                isset($data);
+                foreach ($data as $dat): ?>
+                                  <li><a href="#<?php echo  $dat->CAR_SIGLA?>" tabindex="-1" data-toggle="tab"><?php echo $dat->CAR_SIGLA ?></a></li>
+                <?php endforeach ?>
               </ul>
             </li>
           </ul>
           <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="home">
+            <div class="tab-pane fade in active" id="rec1">
               <br>
               <ul>
                   <li type="disc">Minimo 128 horas, correspondiente a 4 créditos. </li>
@@ -106,7 +110,7 @@ $(document).ready(function(){
                   
               </ul>
             </div>
-            <div class="tab-pane fade" id="profile">
+            <div class="tab-pane fade" id="Rec2">
               <br>
               <ul>
                   <li type="disc">Minimo 128 horas, correspondiente a 4 créditos. </li>
@@ -128,14 +132,20 @@ $(document).ready(function(){
             
               </ul>
             </div>
-            <div class="tab-pane fade" id="dropdown1">
-            <br>
-              <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+            <?php 
+            foreach ($data as $dat): ?>
+            <div class="tab-pane fade" id="<?php echo $dat->CAR_SIGLA?>">
+              <br>             
+              <?php 
+                $infoCarrera=NotPresentacion::model()->findAll(array('condition'=>"CAR_SIGLA='$dat->CAR_SIGLA'"));
+                foreach ($infoCarrera as $info): ?>
+                <h4><?php echo $info->NOT_TITULO?><small> <?php echo $info->OFR_INICIO ?></small></h4>
+                <br>
+                <p><?php echo $info->NOT_CONTENIDO?></p>
+                <br><br>
+              <?php endforeach ?>
             </div>
-            <div class="tab-pane fade" id="dropdown2">
-            <br>
-              <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
-            </div>
+            <?php endforeach ?>
           </div>
         </div>
       </div>

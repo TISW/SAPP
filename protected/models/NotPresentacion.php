@@ -1,24 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "noticias".
+ * This is the model class for table "not_presentacion".
  *
- * The followings are the available columns in table 'noticias':
- * @property string $NOT_ID
+ * The followings are the available columns in table 'not_presentacion':
+ * @property string $CAR_NOMBRE
+ * @property string $CAR_SIGLA
  * @property string $NOT_TITULO
  * @property string $NOT_CONTENIDO
- *
- * The followings are the available model relations:
- * @property Ofrece[] $ofreces
  */
-class Noticias extends CActiveRecord
+class NotPresentacion extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'noticias';
+		return 'not_presentacion';
 	}
 
 	/**
@@ -29,11 +27,12 @@ class Noticias extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOT_TITULO, NOT_CONTENIDO', 'required'),
-			array('NOT_TITULO', 'length', 'max'=>100),
+			array('CAR_NOMBRE, CAR_SIGLA, NOT_TITULO, NOT_CONTENIDO', 'required'),
+			array('CAR_NOMBRE, NOT_TITULO', 'length', 'max'=>100),
+			array('CAR_SIGLA', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('NOT_ID, NOT_TITULO, NOT_CONTENIDO', 'safe', 'on'=>'search'),
+			array('CAR_NOMBRE, CAR_SIGLA, NOT_TITULO, NOT_CONTENIDO', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,7 +44,6 @@ class Noticias extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ofreces' => array(self::HAS_MANY, 'Ofrece', 'NOT_ID'),
 		);
 	}
 
@@ -55,9 +53,10 @@ class Noticias extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'NOT_ID' => 'Noticia',
-			'NOT_TITULO' => 'Titulo',
-			'NOT_CONTENIDO' => 'Contenido',
+			'CAR_NOMBRE' => 'Car Nombre',
+			'CAR_SIGLA' => 'Car Sigla',
+			'NOT_TITULO' => 'Not Titulo',
+			'NOT_CONTENIDO' => 'Not Contenido',
 		);
 	}
 
@@ -79,7 +78,8 @@ class Noticias extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('NOT_ID',$this->NOT_ID,true);
+		$criteria->compare('CAR_NOMBRE',$this->CAR_NOMBRE,true);
+		$criteria->compare('CAR_SIGLA',$this->CAR_SIGLA,true);
 		$criteria->compare('NOT_TITULO',$this->NOT_TITULO,true);
 		$criteria->compare('NOT_CONTENIDO',$this->NOT_CONTENIDO,true);
 
@@ -92,7 +92,7 @@ class Noticias extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Noticias the static model class
+	 * @return NotPresentacion the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
