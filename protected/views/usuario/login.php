@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-<center><h2 style="color:#000;">Login</h2></center>
+<center><h2 style="color:#000;">Bienvendio</h2></center>
   <div class="form-group">
 		<?php echo $form->textField($model,'username',array('class'=>"form-control",'maxlength'=>12,'placeholder'=>'Rut','required'=>'','focused'=>'')); ?>
 		<?php echo $form->error($model,'username'); ?>
