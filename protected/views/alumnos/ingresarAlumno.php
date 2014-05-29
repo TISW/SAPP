@@ -1,5 +1,11 @@
 <?php
 /* @var $this AlumnosController */
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.Rut.min.js',CClientScript::POS_END);
+Yii::app()->clientScript->registerScript('Validar_rut', "
+    $('#Persona_PER_RUT').Rut({
+  on_error: function(){ alert('Rut incorrecto'); }
+});
+");
 
 $this->breadcrumbs=array(
 	'Alumnos'=>array('/alumnos'),
