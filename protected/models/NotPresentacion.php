@@ -8,6 +8,7 @@
  * @property string $CAR_SIGLA
  * @property string $NOT_TITULO
  * @property string $NOT_CONTENIDO
+ * @property string $OFR_INICIO
  */
 class NotPresentacion extends CActiveRecord
 {
@@ -27,12 +28,12 @@ class NotPresentacion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CAR_NOMBRE, CAR_SIGLA, NOT_TITULO, NOT_CONTENIDO', 'required'),
+			array('CAR_NOMBRE, CAR_SIGLA, NOT_TITULO, NOT_CONTENIDO, OFR_INICIO', 'required'),
 			array('CAR_NOMBRE, NOT_TITULO', 'length', 'max'=>100),
-			array('CAR_SIGLA', 'length', 'max'=>10),
+			array('CAR_SIGLA', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('CAR_NOMBRE, CAR_SIGLA, NOT_TITULO, NOT_CONTENIDO', 'safe', 'on'=>'search'),
+			array('CAR_NOMBRE, CAR_SIGLA, NOT_TITULO, NOT_CONTENIDO, OFR_INICIO', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +58,7 @@ class NotPresentacion extends CActiveRecord
 			'CAR_SIGLA' => 'Car Sigla',
 			'NOT_TITULO' => 'Not Titulo',
 			'NOT_CONTENIDO' => 'Not Contenido',
+			'OFR_INICIO' => 'Ofr Inicio',
 		);
 	}
 
@@ -82,6 +84,7 @@ class NotPresentacion extends CActiveRecord
 		$criteria->compare('CAR_SIGLA',$this->CAR_SIGLA,true);
 		$criteria->compare('NOT_TITULO',$this->NOT_TITULO,true);
 		$criteria->compare('NOT_CONTENIDO',$this->NOT_CONTENIDO,true);
+		$criteria->compare('OFR_INICIO',$this->OFR_INICIO,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

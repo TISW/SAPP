@@ -49,7 +49,7 @@
             ));?>
             <!-- Menú para alumnos -->
             <?php if (Yii::app()->user->name == 'alumno') echo '
-            <li><a href="'.Yii::app()->createUrl('Bitacora/Agregar').'">Bitácora</a></li>'
+            <li><a href="'.Yii::app()->createUrl('Bitacora/Administrar').'">Bitácora</a></li>'
             ?>
           </ul>
         <!--Fin de Menu Usuario-->

@@ -16,7 +16,7 @@
 				
 				<!-- Si es Alumno -->
 				<?php if (Yii::app()->user->name == 'alumno') echo '
-            	<li><a href="'.Yii::app()->createUrl('Bitacora/Agregar').'">Bitácora</a></li>
+				<li><a href="'.Yii::app()->createUrl('Bitacora/Administrar').'">Bitácoras</a></li>
             	<li><a href="'.Yii::app()->createUrl('Bitacora/Agregar').'">Agregar Bitácoras</a></li>'
             	
             	?>

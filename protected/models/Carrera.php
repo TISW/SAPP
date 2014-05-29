@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'carrera':
  * @property string $CAR_CODIGO
  * @property string $CAR_NOMBRE
+ * @property string $CAR_SIGLA
  *
  * The followings are the available model relations:
  * @property Ofrece[] $ofreces
@@ -29,11 +30,12 @@ class Carrera extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CAR_NOMBRE', 'required'),
+			array('CAR_NOMBRE, CAR_SIGLA', 'required'),
 			array('CAR_NOMBRE', 'length', 'max'=>100),
+			array('CAR_SIGLA', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('CAR_CODIGO, CAR_NOMBRE', 'safe', 'on'=>'search'),
+			array('CAR_CODIGO, CAR_NOMBRE, CAR_SIGLA', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +60,7 @@ class Carrera extends CActiveRecord
 		return array(
 			'CAR_CODIGO' => 'Car Codigo',
 			'CAR_NOMBRE' => 'Car Nombre',
+			'CAR_SIGLA' => 'Car Sigla',
 		);
 	}
 
@@ -81,6 +84,7 @@ class Carrera extends CActiveRecord
 
 		$criteria->compare('CAR_CODIGO',$this->CAR_CODIGO,true);
 		$criteria->compare('CAR_NOMBRE',$this->CAR_NOMBRE,true);
+		$criteria->compare('CAR_SIGLA',$this->CAR_SIGLA,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
