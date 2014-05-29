@@ -63,7 +63,7 @@ class Bitacora extends CActiveRecord
 			'BIT_ID' => 'Bit',
 			'PRA_ID' => 'Pra',
 			'BIT_INGRESO' => 'Bit Ingreso',
-			'BIT_TITULO' => 'Bit Titulo',
+			'BIT_TITULO' => 'Título',
 			'BIT_CONTENIDO' => 'Bit Contenido',
 			'BIT_ESTADO' => 'Bit Estado',
 		);
