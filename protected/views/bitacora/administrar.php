@@ -61,10 +61,6 @@
       <?php endforeach; ?>
   </tbody>
 </table>
-<?php if(Yii::app()->user->hasFlash('success')):?>
-    <div class="grabado_ok">
-        <?php echo Yii::app()->user->getFlash('success'); ?>
-    </div>
-<?php endif; ?>
+
 </div>
 <?php } ?>
