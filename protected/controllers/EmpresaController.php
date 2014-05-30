@@ -63,8 +63,10 @@ class EmpresaController extends Controller
 		if(isset($_POST['Empresa']))
 		{
 			$model->attributes=$_POST['Empresa'];
-			if($model->save())
-				$this->redirect('index');
+			if($model->save()){Yii::app()->user->setFlash('success','<div class="alert alert-success">
+	  						<strong>Felicidades!</strong> Se han guardado los datos correctamente.
+							</div>');}
+				//$this->redirect('index');
 		}
 
 		$this->render('ingresar',array(

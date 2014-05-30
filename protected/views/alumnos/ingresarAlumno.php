@@ -18,7 +18,12 @@ $this->breadcrumbs=array(
         <h3 class="panel-title">Ingresar Alumno</h3>
       </div>
       <div class="panel-body">
-
+        
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="grabado_ok">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
