@@ -24,7 +24,7 @@ class BitacoraController extends Controller
 				'users'=>array('admin'),
 			),
 			array('allow', 
-				'actions'=>array('index','agregar'), //permite el ingreso a... al alumno
+				'actions'=>array('index','agregar', 'administrar'), //permite el ingreso a... al alumno
 				'users'=>array('alumno'),
 			),
 			array('allow',
@@ -44,12 +44,33 @@ class BitacoraController extends Controller
 
 	public function actionAdministrar()
 	{
-		$this->render('administrar');
+		$bitacora=Bitacora::model()->findAll();
+		$this->render('administrar',array('bitacora'=>$bitacora));		
 	}
 
-	public function actionAgregar()
+	public function actionAgregar($id)
 	{
-		$this->render('agregar');
+		$bitacora=new Bitacora;
+		
+		if (isset($_POST['Bitacora']))  //existe la vista
+			{
+				$bitacora->attributes=$_POST['Bitacora']; //recibir todos los atributos que voy a modificar
+
+				//guardar datos de la Bitacora
+				$bitacora->PRA_ID = $id;
+				$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
+
+				if($bitacora->save())
+						{
+							Yii::app()->user->setFlash('success','<div class="alert alert-success">
+	  						<strong>Felicidades!</strong> Se han guardado los datos correctamente.
+							</div>');
+						} 	
+
+			}
+
+		$this->render('agregar', array('model'=>$bitacora,));
+
 	}
 
 	public function actionBuscar()

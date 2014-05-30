@@ -6,7 +6,7 @@
 
 <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Editar Datos de la Práctica <?php ?></h3>
+        <h3 class="panel-title">Editar Datos de la Práctica</h3>
       </div>
       <div class="panel-body">
         <div>
