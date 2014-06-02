@@ -50,9 +50,9 @@ class Persona extends CActiveRecord
 			array('PER_ID, CAR_CODIGO, PER_RUT, PER_NOMBRE, PER_CORREO, PER_TELEFONO, PER_ROLE', 'safe', 'on'=>'search'),
 		);
 	}
-		/*
+		
 public function validateRut($attribute, $params) {
-        $data = explode('-', $this->PER_RUT);
+       /* $data = explode('-', $this->PER_RUT);
         $evaluate = strrev($data[0]);
         $multiply = 2;
         $store = 0;
@@ -69,12 +69,11 @@ public function validateRut($attribute, $params) {
         if ($result == 11)
             $result = 0;
         if ($verifyCode != $result)
-            $this->addError('PER_RUT', 'Rut inválido.');
+            $this->addError('PER_RUT', 'Rut inválido.');*/
     }
-*/
 
-public function validateRut($attribute, $params) {
-	$rut=$attribute;
+
+/*	$rut=$attribute;
 	$suma=0;
     if(strpos($rut,"-")==false){
         $RUT[0] = substr($rut, 0, -1);
@@ -111,7 +110,7 @@ public function getFormattedRut() {
         }
         return number_format($unformattedRut, 0, ',', '.');
     }
-	
+	*/
 
 	/**
 	 * @return array relational rules.

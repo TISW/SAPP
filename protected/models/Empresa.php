@@ -49,7 +49,7 @@ class Empresa extends CActiveRecord
 		);
 	}
 
-	public function validateRut($attribute, $params) {
+	public function validateRut($attribute, $params) {/*
         $data = explode('-', $this->EMP_RUT);
         $evaluate = strrev($data[0]);
         $multiply = 2;
@@ -67,7 +67,7 @@ class Empresa extends CActiveRecord
         if ($result == 11)
             $result = 0;
         if ($verifyCode != $result)
-            $this->addError('EMP_RUT', 'Rut inválido.');
+            $this->addError('EMP_RUT', 'Rut inválido.');*/
     }
 
 	/**
