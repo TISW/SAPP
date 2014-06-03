@@ -31,10 +31,11 @@
           <ul class="nav navbar-nav">
             <!-- Menú para administrador -->
             <?php if (Yii::app()->user->name == 'admin') echo '
-            <li><a href="'.Yii::app()->createUrl('Practicas/Administrar').'">Practicas</a></li>
-            <li><a href="'.Yii::app()->createUrl('Empresa/Buscar').'">Empresas</a></li>
-            <li><a href="'.Yii::app()->createUrl('Bitacora/Administrar').'">Bitácoras</a></li>
             <li><a href="'.Yii::app()->createUrl('Alumnos/BuscarAlumno').'">Alumnos</a></li>
+            <li><a href="'.Yii::app()->createUrl('Bitacora/Administrar').'">Bitácoras</a></li>
+            <li><a href="'.Yii::app()->createUrl('Empresa/Buscar').'">Empresas</a></li>
+            <li><a href="'.Yii::app()->createUrl('Noticias/AgregarNoticia').'">Noticias</a></li>
+            <li><a href="'.Yii::app()->createUrl('Practicas/Administrar').'">Prácticas</a></li>
             <li><a href="'.Yii::app()->createUrl('Usuario/').'">Usuarios</a></li>'
             ?>
             <!-- Menú para Profesor -->
@@ -43,6 +44,7 @@
               'items'=>array(
                 array('label'=>'Practicas', 'url'=>array('/Practicas/Administrar'),'active'=>Yii::app()->controller->id=='Practicas'),
                 array('label'=>'Usuarios', 'url'=>array('/Usuario/administrar'), 'visible'=>Yii::app()->user->name=='profesor'),
+                array('label'=>'Practicas', 'url'=>array('Noticias/AgregarNoticia'),'active'=>Yii::app()->controller->id=='Practicas'),
               ),'htmlOptions'=>array('class'=>'nav navbar-nav'),
             ));?>
             <!-- Menú para alumnos -->
