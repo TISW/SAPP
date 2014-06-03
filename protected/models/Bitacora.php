@@ -86,12 +86,12 @@ class Bitacora extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'BIT_ID' => 'Bit',
-			'PRA_ID' => 'Pra',
-			'BIT_INGRESO' => 'Bit Ingreso',
+			'BIT_ID' => 'ID_Bitácora',
+			'PRA_ID' => 'ID_Práctica',
+			'BIT_INGRESO' => 'Fecha_Ingreso',
 			'BIT_TITULO' => 'Título', 
 			'BIT_CONTENIDO' => 'Contenido',
-			'BIT_ESTADO' => 'Bit Estado',
+			'BIT_ESTADO' => 'Estado_Bitácora',
 		);
 	}
 
