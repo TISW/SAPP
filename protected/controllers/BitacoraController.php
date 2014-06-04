@@ -45,12 +45,17 @@ class BitacoraController extends Controller
 	public function actionAdministrar()
 	{
 		$bitacora=Bitacora::model()->findAll();
+		if (isset($_POST['Bitacora']))  //existe la vista
+			{
+				$bitacora->attributes=$_POST['Bitacora']; //recibir todos los atributos que voy a modificar
+
+			}
 		$this->render('administrar',array('bitacora'=>$bitacora));		
 	}
 
 	public function actionAgregar($id)
 	{
-		$bitacora=new Bitacora;
+		$bitacora=new Bitacora();
 		
 		if (isset($_POST['Bitacora']))  //existe la vista
 			{
