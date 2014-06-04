@@ -45,6 +45,8 @@ class Persona extends CActiveRecord
 			array('PER_TELEFONO', 'length', 'max'=>20),
 
 			array('PER_RUT', 'validateRut'),
+			array('PER_RUT','ifrutexists', 'exists'=> 'nonexists'),
+
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('PER_ID, CAR_CODIGO, PER_RUT, PER_NOMBRE, PER_CORREO, PER_TELEFONO, PER_ROLE', 'safe', 'on'=>'search'),
@@ -255,6 +257,29 @@ public function getFormattedRut() {
 	/**
 	 * @return array relational rules.
 	 */
+
+public function ifrutexists($attribute,$params)
+        {
+                $rut =$this->$attribute;
+
+                $user = new Persona();
+
+                if($params['exists'] === 'nonexists')
+                {
+                        if ($user->findByAttributes(array('PER_RUT'=>$rut)))
+                                $this->addError($attribute, 'Rut existe');           
+
+                }
+                if($params['exists'] === 'exists')
+                {
+                if(!$user->findByAttributes(array('PER_RUT'=>$rut)))
+                        $this->addError($attribute, 'rut no existe');
+            }
+                
+        }
+
+
+
 	public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related
