@@ -44,7 +44,8 @@ class Empresa extends CActiveRecord
 
 			array('EMP_RUT', 'validateRut'),
 
-			array('PER_RUT','ifrutexists', 'exists'=> 'nonexists'),
+			array('EMP_RUT','ifrutexists', 'exists'=> 'nonexists'),
+			array('EMP_CORREO', 'dominio'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('EMP_ID, EMP_NOMBRE, EMP_RUT, EMP_DIRECCION, EMP_CONTACTO, EMP_CORREO, EMP_TELEFONO, EMP_INGRESO', 'safe', 'on'=>'search'),
@@ -105,6 +106,17 @@ var_dump($dv);
             }
                 
         }
+    public function dominio($attribute,$params){
+	$i =strlen (  $this->$attribute );
+    for($i;$i>0;$i--)
+    {
+    	if(strpos($this->$attribute, '@',$i))
+    		{$this->addError($attribute, 'email incorrecto');break;}
+    	if(strpos($this->$attribute, '.',$i))
+    	{break;}
+    }
+
+}
 	public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related

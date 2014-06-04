@@ -46,6 +46,7 @@ class Persona extends CActiveRecord
 
 			array('PER_RUT', 'validateRut'),
 			array('PER_RUT','ifrutexists', 'exists'=> 'nonexists'),
+			array('PER_CORREO', 'dominio'),
 
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -277,7 +278,17 @@ public function ifrutexists($attribute,$params)
             }
                 
         }
+public function dominio($attribute,$params){
+	$i =strlen (  $this->$attribute );
+    for($i;$i>0;$i--)
+    {
+    	if(strpos($this->$attribute, '@',$i))
+    		{$this->addError($attribute, 'email incorrecto');break;}
+    	if(strpos($this->$attribute, '.',$i))
+    	{break;}
+    }
 
+}
 
 
 	public function relations()
