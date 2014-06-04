@@ -1,24 +1,49 @@
-<?php
-$form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
-    'layout' => BsHtml::FORM_LAYOUT_INLINE,
-    'enableAjaxValidation' => true,
-    'id' => 'user_form_inline',
-    'htmlOptions' => array(
-        'class' => 'bs-example'
-    )
-));
-?>
 
 <?php if (Yii::app()->user->name == 'admin'){?>
 
 <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Panel Admin</h3>
-    </div>
-      <div class="panel-body">
-            <?php echo $form->textFieldControlGroup($bitacora, 'BIT_TITULO');?> 
+        <h3 class="panel-title">Página Bitácoras Admin</h3>
       </div>
-      <table class="table">
+      <div class="panel-body">
+        
+        <table class="table">
+  <thead>
+    <tr>
+      <th>ID_Bitácora</th>
+      <th>Ingreso</th>
+      <th>Título</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php foreach ($bitacora as $bit):?>
+      <tr>
+        <td><?php echo $bit->BIT_ID;?></td>
+        <td><?php echo $bit->BIT_INGRESO;?></td>
+        <td><?php echo $bit->BIT_TITULO;?></td>
+       
+        <td><span></span></td>
+      </tr>
+      <?php endforeach; ?>
+  </tbody>
+</table>
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="grabado_ok">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
+</div>
+<?php  }?>
+
+
+<?php if (Yii::app()->user->name == 'alumno'){?>    
+	  <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Página Bitácoras Alumno</h3>
+      </div>
+      <div class="panel-body">
+        
+        <table class="table">
   <thead>
     <tr>
       <th>Título</th>
@@ -26,21 +51,16 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($bitacora as $bit):?>
+  	  <?php foreach ($bitacora as $bit):?>
       <tr>
-        <td><?php echo $bit->CAR_CODIGO;?></td>
-        <td><?php echo $bit->PER_RUT;?></td>
-        <td><?php echo $bit->PER_NOMBRE;?></td>
-        <td><?php echo $bit->PRA_ESTPRACTICA;?></td>
-        <td><?php echo $bit->PRA_TIPO;?></td>
-        
-        
+        <td><?php echo $bit->BIT_TITULO;?></td>
+        <td><?php echo $bit->BIT_CONTENIDO;?></td>
+       
+        <td><span></span></td>
       </tr>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
   </tbody>
 </table>
-</div><?php  } ?>
 
-<?php
-$this->endWidget();
-?>
+</div>
+<?php } ?>
