@@ -141,13 +141,10 @@ class NoticiasController extends Controller
 
 	public function actioneliminarOfrecimiento($id)
 	{
-			// we only allow deletion via POST request
-			$model=Ofrece::model()->findByAttributes(array('OFR_ID'=>$id))->delete();
+			$model=Ofrece::model()->findByAttributes(array('OFR_ID'=>$id));
 			$num=$model->NOT_ID;
 			$model->delete();
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('ofrecerNoticia','id'=>$num));
+			$this->redirect(array('ofrecerNoticia','id'=>$num));
 	}
 	/**
 	* Lists all models.
@@ -165,14 +162,12 @@ class NoticiasController extends Controller
 	*/
 	public function actionAdministrarNoticia()
 	{
-		$model=new Noticias('search');
-		$model->unsetAttributes();  // clear any default values
+		$model=new Noticias;
 		if(isset($_GET['Noticias']))
 			$model->attributes=$_GET['Noticias'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+		$buscar=($model->NOT_TITULO=='')?Noticias::model()->findAll():Noticias::model()->findAll("NOT_TITULO Like '%$model->NOT_TITULO%'");
+		var_dump($buscar);
+		$this->render('admin',array('model'=>$model,'buscar'=>$buscar));
 	}
 
 	/**

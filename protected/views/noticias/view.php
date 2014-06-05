@@ -18,18 +18,24 @@ $this->menu=array(
 );
 ?>
 
-<?php echo BsHtml::pageHeader('View','Noticias '.$model->NOT_ID) ?>
-
+<?php
+$this->beginWidget('bootstrap.widgets.BsPanel', array(
+    'title' => 'Ver Noticia '.$model->NOT_TITULO,
+    'type' => BsHtml::PANEL_TYPE_PRIMARY
+));
+?>
 <?php $this->widget('zii.widgets.CDetailView',array(
 	'htmlOptions' => array(
 		'class' => 'table table-striped table-condensed table-hover',
 	),
 	'data'=>$model,
 	'attributes'=>array(
-		'NOT_ID',
 		'NOT_TITULO',
 		'NOT_CONTENIDO',
 	),
 )); ?>
 
-<?php echo BsHtml::button('Publicar',array('onclick'=>"window.location = 'ofrecerNoticia/$model->NOT_ID';"));
+<?php echo BsHtml::button('Publicar',array('onclick'=>"window.location = '".Yii::app()->createUrl("Noticias/ofrecerNoticia/$model->NOT_ID")."'"));?>
+<?php
+$this->endWidget();
+?>

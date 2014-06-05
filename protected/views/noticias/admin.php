@@ -27,7 +27,12 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<?php echo BsHtml::pageHeader('Administrar','Noticias') ?>
+<?php
+$this->beginWidget('bootstrap.widgets.BsPanel', array(
+    'title' => 'Administrar Noticias',
+    'type' => BsHtml::PANEL_TYPE_PRIMARY
+));
+?>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title"><?php echo BsHtml::button('Busqueda Avanzada',array('class' =>'search-button', 'icon' => BsHtml::GLYPHICON_SEARCH,'color' => BsHtml::BUTTON_COLOR_PRIMARY), '#'); ?></h3>
@@ -39,23 +44,43 @@ $('.search-form form').submit(function(){
             )); ?>
         </div>
         <!-- search-form -->
-
-        <?php $this->widget('bootstrap.widgets.BsGridView',array(
-			'id'=>'noticias-grid',
-			'dataProvider'=>$model->search(),
-			'filter'=>$model,
-			'columns'=>array(
-        		'NOT_ID',
-		'NOT_TITULO',
-		'NOT_CONTENIDO',
-				array(
-					'class'=>'bootstrap.widgets.BsButtonColumn',
-				),
-			),
-        )); ?>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Titulo</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($buscar as $user):?>
+      <tr>
+        <td><a href="<?php echo Yii::app()->createUrl("Noticias/view/$user->NOT_ID"); ?>"> <?php echo $user->NOT_TITULO;?></a></td>
+        <td>
+          <center>
+            <div class="btn-group">
+              <div class="input-group">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                <li><a href="<?php echo Yii::app()->createUrl("Usuario/editar/$user->NOT_ID"); ?>">Editar Usuario</a></li>
+                  <!--trigger Modal-->
+                  <li data-toggle="modal" data-target="#questionDelete<?php echo $user->NOT_ID?>"><a>Eliminar Usuario</a></li>
+                </ul>
+              </div> 
+            </div>
+          </center>
+        </td>
+      </tr>
+              <!-- Modal -->
+    <!--Fin de Modal-->
+    <?php endforeach; ?>
+  </tbody>
+</table>
     </div>
 </div>
-
-
+<?php
+$this->endWidget();
+?>
 
 
