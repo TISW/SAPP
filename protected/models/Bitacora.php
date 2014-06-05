@@ -39,34 +39,8 @@ class Bitacora extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('BIT_ID, PRA_ID, BIT_INGRESO, BIT_TITULO, BIT_CONTENIDO, BIT_ESTADO', 'safe', 'on'=>'search'),
-			//array('BIT_TITULO, BIT_CONTENIDO', 'comprobar_cadena'),
 		);
 	}
-
-	/*function comprobar_cadena($attribute, $params){ 
-	//compruebo que los caracteres sean los permitidos 
-	$cadena = $this->$attribute; // caracteres permitidos 
-	$permitidos = "abcdefghijklmnñopqrstuvwxyzáéíóúABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚ123456789,-_/.() "; 
-	// le cambio el nombre, para que cuando arroje el error diga "descrición" en ves de OFE_DESCRIPCION if($attribute=='OFE_NOMBRE') $lala = 'Titulo '; 
-	if($attribute=='BIT_TITULO') $lala = 'Descripción'; 
-	if($attribute=='BIT_CONTENIDO') $lala = 'Tareas'; 
-	
-	for ($i=0,$aux=0; $i<strlen($cadena); $i++){ 
-		if (strpos($permitidos, substr($cadena,$i,1))===false)
-			{ $aux = 1; } } 
-			if($aux==1) $this->addError($attribute,'El campo <b>'.$lala.'</b> Solo acepta letras, numeros y algunos simbolos'); } 
-
-	/*function comprobar_primer_dato($attribute,$params){ 
-	$cadena = $this->$attribute; 
-	// caracteres permitidos 
-	$permitidos = "abcdefghijklmnñopqrstuvwxyzáéíóúABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚ"; 
-	// le cambio el nombre, para que cuando arroje el error diga "descrición" en ves de OFE_DESCRIPCION if($attribute=='OFE_NOMBRE') $lala = 'Titulo '; 
-	if($attribute=='OFE_DESCRIPCION') $lala = 'Descripción'; 
-	if($attribute=='OFE_TAREAS') $lala = 'Tareas'; 
-	if($attribute=='OFE_AREA_TRABAJO') $lala = 'Área de Trabajo'; 
-	if (strpos($permitidos, substr($cadena,0,1))===false){ 
-		$this->addError($attribute, 'El campo <b>'.$lala.'</b> debe comenzar con una letra'); } }*/
-
 
 	/**
 	 * @return array relational rules.
@@ -86,12 +60,12 @@ class Bitacora extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'BIT_ID' => 'ID_Bitácora',
-			'PRA_ID' => 'ID_Práctica',
-			'BIT_INGRESO' => 'Fecha de Ingreso',
-			'BIT_TITULO' => 'Título', 
-			'BIT_CONTENIDO' => 'Contenido',
-			'BIT_ESTADO' => 'Estado_Bitácora',
+			'BIT_ID' => 'ID Bitácora',
+			'PRA_ID' => 'ID Práctica',
+			'BIT_INGRESO' => 'Fecha Ingreso Bitácora',
+			'BIT_TITULO' => 'Título',
+			'BIT_CONTENIDO' => 'Coontenido',
+			'BIT_ESTADO' => 'Estado Bitácora',
 		);
 	}
 
