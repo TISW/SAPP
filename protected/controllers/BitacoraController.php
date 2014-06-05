@@ -44,8 +44,13 @@ class BitacoraController extends Controller
 
 	public function actionAdministrar()
 	{
-		$bitacora=Bitacora::model()->findAll();
-		$this->render('administrar',array('bitacora'=>$bitacora));		
+		$bitacora=BitAdmin::model()->findAll();
+		if(isset($_POST['BitAdmin']));
+			{
+				
+			}
+
+		$this->render('administrar',array('bitacora'=>$bitacora));	
 	}
 
 	public function actionAgregar($id)
