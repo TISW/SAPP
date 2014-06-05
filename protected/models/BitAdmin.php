@@ -1,27 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "bitacora".
+ * This is the model class for table "bit_admin".
  *
- * The followings are the available columns in table 'bitacora':
+ * The followings are the available columns in table 'bit_admin':
  * @property string $BIT_ID
  * @property string $PRA_ID
  * @property string $BIT_INGRESO
  * @property string $BIT_TITULO
  * @property string $BIT_CONTENIDO
  * @property string $BIT_ESTADO
- *
- * The followings are the available model relations:
- * @property Practica $pRA
+ * @property string $PER_ID
+ * @property string $PRA_TIPO
+ * @property string $PER_NOMBRE
+ * @property string $EMP_NOMBRE
  */
-class Bitacora extends CActiveRecord
+class BitAdmin extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'bitacora';
+		return 'bit_admin';
 	}
 
 	/**
@@ -32,41 +33,17 @@ class Bitacora extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PRA_ID, BIT_INGRESO, BIT_TITULO, BIT_CONTENIDO', 'required'),
-			array('PRA_ID', 'length', 'max'=>10),
+			array('BIT_TITULO, BIT_CONTENIDO, PER_NOMBRE', 'required'),
+			array('BIT_ID, PRA_ID, PER_ID', 'length', 'max'=>10),
 			array('BIT_TITULO', 'length', 'max'=>100),
-			array('BIT_ESTADO', 'length', 'max'=>1),
+			array('BIT_ESTADO, PRA_TIPO', 'length', 'max'=>1),
+			array('PER_NOMBRE, EMP_NOMBRE', 'length', 'max'=>60),
+			array('BIT_INGRESO', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('BIT_ID, PRA_ID, BIT_INGRESO, BIT_TITULO, BIT_CONTENIDO, BIT_ESTADO', 'safe', 'on'=>'search'),
-			//array('BIT_TITULO, BIT_CONTENIDO', 'comprobar_cadena'),
+			array('BIT_ID, PRA_ID, BIT_INGRESO, BIT_TITULO, BIT_CONTENIDO, BIT_ESTADO, PER_ID, PRA_TIPO, PER_NOMBRE, EMP_NOMBRE', 'safe', 'on'=>'search'),
 		);
 	}
-
-	/*function comprobar_cadena($attribute, $params){ 
-	//compruebo que los caracteres sean los permitidos 
-	$cadena = $this->$attribute; // caracteres permitidos 
-	$permitidos = "abcdefghijklmnñopqrstuvwxyzáéíóúABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚ123456789,-_/.() "; 
-	// le cambio el nombre, para que cuando arroje el error diga "descrición" en ves de OFE_DESCRIPCION if($attribute=='OFE_NOMBRE') $lala = 'Titulo '; 
-	if($attribute=='BIT_TITULO') $lala = 'Descripción'; 
-	if($attribute=='BIT_CONTENIDO') $lala = 'Tareas'; 
-	
-	for ($i=0,$aux=0; $i<strlen($cadena); $i++){ 
-		if (strpos($permitidos, substr($cadena,$i,1))===false)
-			{ $aux = 1; } } 
-			if($aux==1) $this->addError($attribute,'El campo <b>'.$lala.'</b> Solo acepta letras, numeros y algunos simbolos'); } 
-
-	/*function comprobar_primer_dato($attribute,$params){ 
-	$cadena = $this->$attribute; 
-	// caracteres permitidos 
-	$permitidos = "abcdefghijklmnñopqrstuvwxyzáéíóúABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚ"; 
-	// le cambio el nombre, para que cuando arroje el error diga "descrición" en ves de OFE_DESCRIPCION if($attribute=='OFE_NOMBRE') $lala = 'Titulo '; 
-	if($attribute=='OFE_DESCRIPCION') $lala = 'Descripción'; 
-	if($attribute=='OFE_TAREAS') $lala = 'Tareas'; 
-	if($attribute=='OFE_AREA_TRABAJO') $lala = 'Área de Trabajo'; 
-	if (strpos($permitidos, substr($cadena,0,1))===false){ 
-		$this->addError($attribute, 'El campo <b>'.$lala.'</b> debe comenzar con una letra'); } }*/
-
 
 	/**
 	 * @return array relational rules.
@@ -76,7 +53,6 @@ class Bitacora extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'pRA' => array(self::BELONGS_TO, 'Practica', 'PRA_ID'),
 		);
 	}
 
@@ -86,12 +62,16 @@ class Bitacora extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'BIT_ID' => 'ID_Bitácora',
-			'PRA_ID' => 'ID_Práctica',
+			'BIT_ID' => 'ID Bitácora',
+			'PRA_ID' => 'ID Práctica',
 			'BIT_INGRESO' => 'Fecha de Ingreso',
-			'BIT_TITULO' => 'Título', 
+			'BIT_TITULO' => 'Título',
 			'BIT_CONTENIDO' => 'Contenido',
-			'BIT_ESTADO' => 'Estado_Bitácora',
+			'BIT_ESTADO' => 'Estado de Bitácora',
+			'PER_ID' => 'ID Persona',
+			'PRA_TIPO' => 'Tipo de Práctica ',
+			'PER_NOMBRE' => 'Nombre del Alumno',
+			'EMP_NOMBRE' => 'Nombre de Empresa',
 		);
 	}
 
@@ -119,6 +99,10 @@ class Bitacora extends CActiveRecord
 		$criteria->compare('BIT_TITULO',$this->BIT_TITULO,true);
 		$criteria->compare('BIT_CONTENIDO',$this->BIT_CONTENIDO,true);
 		$criteria->compare('BIT_ESTADO',$this->BIT_ESTADO,true);
+		$criteria->compare('PER_ID',$this->PER_ID,true);
+		$criteria->compare('PRA_TIPO',$this->PRA_TIPO,true);
+		$criteria->compare('PER_NOMBRE',$this->PER_NOMBRE,true);
+		$criteria->compare('EMP_NOMBRE',$this->EMP_NOMBRE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -129,7 +113,7 @@ class Bitacora extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Bitacora the static model class
+	 * @return BitAdmin the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
