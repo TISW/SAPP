@@ -20,7 +20,7 @@ class EmpresaController extends Controller
 				'users'=>array('*'), //todos
 			),
 			array('allow', 
-				'actions'=>array('index','view','buscar','convenio','editar','ingresar','mostrar'), //permite el ingreso a... al admin.
+				'actions'=>array('index','view','buscar','convenio','editar','ingresar','mostrar','verConvenio','editarConvenio','crearConvenio'), //permite el ingreso a... al admin.
 				'users'=>array('admin'),
 			),
 			array('allow',
@@ -45,7 +45,22 @@ class EmpresaController extends Controller
 
 	public function actionConvenio()
 	{
-		$this->render('convenio');
+		//mostrar todas las empresas
+		$empresas = Empresa::model()->findAll();
+		$this->render('convenio', array('empresas'=>$empresas));
+
+
+	}
+
+	public function actionVerConvenio($id)
+	{
+		$convEmpresa = convenios::model()->findAll($id='EMP_ID');
+		$this->render('verConvenio', array('convEmpresa'=>$convEmpresa));
+	}
+
+	public function actionCrearConvenio()
+	{
+		$this->render('crearConvenio');
 	}
 
 	public function actionEditar()
