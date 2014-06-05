@@ -12,11 +12,11 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
 
 <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Página Bitácoras Admin</h3>
+        <h3 class="panel-title">Página Bitácoras Administrador</h3>
       </div>
       <div class="panel-body">
 
-        <?php //echo $form->textFieldControlGroup($bitacora, 'BIT_TITULO');?>
+        <?php echo $form->textField($nuevo, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
         <?php echo BsHtml::submitButton('', array('color' => BsHtml::BUTTON_COLOR_PRIMARY, 'icon' =>BsHtml::GLYPHICON_PLUS));?>
         
         <table class="table">
@@ -45,15 +45,15 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
 
                           <ul class="dropdown-menu pull-right">
                             <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/verBitacora/$bitacora->PRA_ID"); ?>">Ver Bitácora</a>
+                              <a href="<?php echo Yii::app()->createUrl("Bitacora/ver/$bit->PRA_ID"); ?>">Ver Bitácora</a>
                             </li>
 
                             <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bitacora->PRA_ID"); ?>">Editar Bitácora</a>
+                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->PRA_ID"); ?>">Editar Bitácora</a>
                             </li>
 
                             <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bitacora->PRA_ID"); ?>">Eliminar Bitácora</a>
+                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->PRA_ID"); ?>">Eliminar Bitácora</a>
                             </li>
                           </ul>
                          
@@ -96,5 +96,5 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
 
 </div>
 <?php } ?>
-<?php echo $form->errorSummary($prac); ?>
+<?php echo $form->errorSummary($bit); ?>
 <?php $this->endWidget();?>

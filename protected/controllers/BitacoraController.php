@@ -20,7 +20,7 @@ class BitacoraController extends Controller
 				'users'=>array('*'), //todos
 			),
 			array('allow', 
-				'actions'=>array('index','view','administrar','agregar','buscar','editar','eliminar'), //permite el ingreso a... al admin.
+				'actions'=>array('index','view','administrar','agregar','buscar','editar','eliminar','ver'), //permite el ingreso a... al admin.
 				'users'=>array('admin'),
 			),
 			array('allow', 
@@ -41,16 +41,20 @@ class BitacoraController extends Controller
 		);
 	}
 
+	//funciones*
 
 	public function actionAdministrar()
 	{
-		$bitacora=BitAdmin::model()->findAll();
-		if(isset($_POST['BitAdmin']));
-			{
-				
-			}
+		{
+			$bitacora=BitAdmin::model()->findAll();
+			$nuevo = new BitAdmin;
+			if(isset($_POST['BitAdmin']));
+				{
+					
+				}
 
-		$this->render('administrar',array('bitacora'=>$bitacora));	
+			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo));	
+		}
 	}
 
 	public function actionAgregar($id)
@@ -75,12 +79,6 @@ class BitacoraController extends Controller
 			}
 
 		$this->render('agregar', array('model'=>$bitacora,));
-
-	}
-
-	public function actionBuscar()
-	{
-		$this->render('buscar');
 	}
 
 	public function actionEditar()
@@ -93,5 +91,9 @@ class BitacoraController extends Controller
 		$this->render('eliminar');
 	}
 
-	
+	public function actionVer()
+	{
+		$this->render('ver');
+	}
+
 }
