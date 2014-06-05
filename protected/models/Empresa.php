@@ -43,6 +43,9 @@ class Empresa extends CActiveRecord
 			array('EMP_TELEFONO', 'length', 'max'=>20),
 
 			array('EMP_RUT', 'validateRut'),
+
+			array('EMP_RUT','ifrutexists', 'exists'=> 'nonexists'),
+			array('EMP_CORREO', 'dominio'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('EMP_ID, EMP_NOMBRE, EMP_RUT, EMP_DIRECCION, EMP_CONTACTO, EMP_CORREO, EMP_TELEFONO, EMP_INGRESO', 'safe', 'on'=>'search'),
@@ -50,29 +53,70 @@ class Empresa extends CActiveRecord
 	}
 
 	public function validateRut($attribute, $params) {
-        $data = explode('-', $this->EMP_RUT);
-        $evaluate = strrev($data[0]);
-        $multiply = 2;
-        $store = 0;
-        for ($i = 0; $i < strlen($evaluate); $i++) {
-            $store += $evaluate[$i] * $multiply;
-            $multiply++;
-            if ($multiply > 7)
-                $multiply = 2;
-        }
-        isset($data[1]) ? $verifyCode = strtolower($data[1]) : $verifyCode = '';
-        $result = 11 - ($store % 11);
-        if ($result == 10)
-            $result = 'k';
-        if ($result == 11)
-            $result = 0;
-        if ($verifyCode != $result)
-            $this->addError('EMP_RUT', 'Rut inválido.');
-    }
+         if(strlen($this->$attribute)==12){
+    $rut = str_split($this->$attribute);
 
+    var_dump($rut);
+
+
+	$suma=0;
+	$suma += $rut[9]*2;
+	$suma += $rut[8]*3;
+	$suma += $rut[7]*4;
+	$suma += $rut[5]*5;
+	$suma += $rut[4]*6;
+	$suma += $rut[3]*7;
+	$suma += $rut[1]*2;
+	$suma += $rut[0]*3;
+	$resto = $suma % 11;
+    $dv = 11 - $resto;
+var_dump($dv);
+    if($dv == 11){
+        $dv=0;
+    }else if($dv == 10){
+        $dv="k";
+    }else{
+        $dv=$dv;
+    }
+   if($dv != $rut[11]){
+		$this->addError($attribute, 'Rut inválido.');
+	}
+   }
+   else {$this->addError($attribute, 'Rut inválido.');}
+}
 	/**
 	 * @return array relational rules.
 	 */
+	public function ifrutexists($attribute,$params)
+        {
+                $rut =$this->$attribute;
+
+                $user = new Persona();
+
+                if($params['exists'] === 'nonexists')
+                {
+                        if ($user->findByAttributes(array('PER_RUT'=>$rut)))
+                                $this->addError($attribute, 'Rut existe');           
+
+                }
+                if($params['exists'] === 'exists')
+                {
+                if(!$user->findByAttributes(array('PER_RUT'=>$rut)))
+                        $this->addError($attribute, 'rut no existe');
+            }
+                
+        }
+    public function dominio($attribute,$params){
+	$i =strlen (  $this->$attribute );
+    for($i;$i>0;$i--)
+    {
+    	if(strpos($this->$attribute, '@',$i))
+    		{$this->addError($attribute, 'email incorrecto');break;}
+    	if(strpos($this->$attribute, '.',$i))
+    	{break;}
+    }
+
+}
 	public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related

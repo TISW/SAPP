@@ -63,8 +63,10 @@ class AlumnosController extends Controller
 			$alumno->attributes=$_POST['Persona'];
 			$alumno->CAR_CODIGO=1;
 			$alumno->PER_ROLE='alumno';
-			if($alumno->save())
-				$this->redirect('index');
+			if($alumno->save()){Yii::app()->user->setFlash('success','<div class="alert alert-success">
+	  						<strong>Felicidades!</strong> Se han guardado los datos correctamente.
+							</div>');}
+				//$this->redirect('index');
 		}
 
 		$this->render('ingresarAlumno',array(
