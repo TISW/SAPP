@@ -76,7 +76,7 @@ $(document).ready(function(){
             <li class="active"><a href="#rec1" data-toggle="tab">Requerimientos Práctica 1</a></li>
             <li><a href="#Rec2" data-toggle="tab">Requerimientos Práctica 2</a></li>
             <li class="dropdown">
-              <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">Carrera<b class="caret"></b></a>
+              <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">HOla<b class="caret"></b></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
                 <?php 
                 $data=NotPresentacion::model()->findAll(array('select'=>'CAR_SIGLA','distinct'=>true,));
