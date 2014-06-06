@@ -45,16 +45,22 @@ class BitacoraController extends Controller
 
 	public function actionAdministrar()
 	{
+		$nuevo = BitAdmin::model()->findAll(); //Guarda todas las Bitácoras
+		$bitacora2= new BitAdmin();
+
+		if(Yii::app()->user->name == 'admin')
 		{
 			$bitacora=BitAdmin::model()->findAll();
-			$nuevo = new BitAdmin;
-			if(isset($_POST['BitAdmin']));
-				{
-					
-				}
-
-			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo));	
 		}
+		if(Yii::app()->user->name == 'profesor')
+		{
+			$bitacora=BitAdmin::model()->findByAttributes(array('CAR_CODIGO'=>Yii::app()->user->carrera));
+		}
+		if(Yii::app()->user->name == 'alumno')
+		{
+			$bitacora=BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //Guarda el ID de la persona
+		}
+			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2));	
 	}
 
 	public function actionAgregar($id)
