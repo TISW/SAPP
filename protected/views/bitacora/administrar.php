@@ -8,6 +8,7 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
     )
 ));
 ?>
+
 <?php if (Yii::app()->user->name == 'admin'){?>
 
 <div class="panel panel-primary">
@@ -16,7 +17,7 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
       </div>
       <div class="panel-body">
 
-        <?php echo $form->textField($nuevo, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
+        <?php echo $form->textField($bitacora2, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
         <?php echo BsHtml::submitButton('', array('color' => BsHtml::BUTTON_COLOR_PRIMARY, 'icon' =>BsHtml::GLYPHICON_PLUS));?>
         
         <table class="table">
@@ -75,26 +76,32 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
       </div>
       <div class="panel-body">
         
-        <table class="table">
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Contenido</th>
-    </tr>
-  </thead>
-  <tbody>
-  	  <?php foreach ($bitacora as $bit):?>
-      <tr>
-        <td><?php echo $bit->BIT_TITULO;?></td>
-        <td><?php echo $bit->BIT_CONTENIDO;?></td>
-       
-        <td><span></span></td>
-      </tr>
-      <?php endforeach; ?>
-  </tbody>
-</table>
+        <!-- Mostrar las bitácoras del alumno en particular-->
+        <?php //var_dump($bitacora->PER_ID) //tiene el ID de la persona?> 
+        <?php foreach ($nuevo as $bit):?> <!--Recorro el arreglo nuevo-->
+                <?php echo $bit->PER_ID?>
+        <?php endforeach; ?>
+        
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Contenido</th>
+            </tr>
+          </thead>
+          <tbody>
+                <?php foreach ($nuevo as $bit):?> <!--Recorro el arreglo nuevo-->
+                <?php if($bit->PER_ID == $bitacora->PER_ID) {?> <!-- si los id de persona que hay en nuevo = id bitacora-->
+                <tr>                  
+                  <td><?php echo $bit->BIT_TITULO;?></td>
+                  <td><?php echo $bit->BIT_CONTENIDO;?></td>
+                </tr>
+                <?php } ?>
+                <?php endforeach; ?>
 
-</div>
+          </tbody>
+          </table> 
+        </div>
 <?php } ?>
 <?php echo $form->errorSummary($bit); ?>
 <?php $this->endWidget();?>
