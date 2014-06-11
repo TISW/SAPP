@@ -39,6 +39,10 @@ class Noticias extends CActiveRecord
 					'not' => true, 
 					'pattern' => '/[^a-zA-Z0-9 *-+,.]/',
 					'message' => 'En el {attribute} solo se pueden usar letras, numeros, espacios y algunos simbolos como (*,-.+)', 'on' => 'create'),
+			array(	'NOT_CONTENIDO', 'match', 
+					'not' => true, 
+					'pattern' => '/[^a-zA-Z]/',
+					'message' => 'En el {attribute}, Al menos debe tener una letra.'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('NOT_ID, NOT_TITULO, NOT_CONTENIDO', 'safe', 'on'=>'search'),
