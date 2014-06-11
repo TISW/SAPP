@@ -62,7 +62,7 @@ class NoticiasController extends Controller
 	*/
 	public function actionAgregarNoticia()
 	{
-		$model=new Noticias;
+		$model=new Noticias('create');
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -80,7 +80,7 @@ class NoticiasController extends Controller
 	}
 	public function actionOfrecerNoticia($id)
 	{
-		$model=new Ofrece;		
+		$model=new Ofrece('create');		
 		$model->NOT_ID=$id;
 		// Uncomment the following line if AJAX validation is needed
 
@@ -166,7 +166,6 @@ class NoticiasController extends Controller
 		if(isset($_GET['Noticias']))
 			$model->attributes=$_GET['Noticias'];
 		$buscar=($model->NOT_TITULO=='')?Noticias::model()->findAll():Noticias::model()->findAll("NOT_TITULO Like '%$model->NOT_TITULO%'");
-		var_dump($buscar);
 		$this->render('admin',array('model'=>$model,'buscar'=>$buscar));
 	}
 

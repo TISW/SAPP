@@ -48,7 +48,7 @@ $this->beginWidget('bootstrap.widgets.BsPanel', array(
   <thead>
     <tr>
       <th>Titulo</th>
-      <th>Opciones</th>
+      <th style="width:20px">Opciones</th>
     </tr>
   </thead>
   <tbody>
