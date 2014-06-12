@@ -46,15 +46,15 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
 
                           <ul class="dropdown-menu pull-right">
                             <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/ver/$bit->PRA_ID"); ?>">Ver Bitácora</a>
+                              <a href="<?php echo Yii::app()->createUrl("Bitacora/ver/$bit->BIT_ID"); ?>">Ver Bitácora</a>
                             </li>
 
                             <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->PRA_ID"); ?>">Editar Bitácora</a>
+                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->BIT_ID"); ?>">Editar Bitácora</a>
                             </li>
 
                             <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->PRA_ID"); ?>">Eliminar Bitácora</a>
+                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->BIT_ID"); ?>">Eliminar Bitácora</a>
                             </li>
                           </ul>
                          

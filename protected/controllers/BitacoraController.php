@@ -98,7 +98,30 @@ class BitacoraController extends Controller
 
 	public function actionEditar($id)
 	{
-		$this->render('editar');
+		$alumno = BitAdmin::model()->findByAttributes(array('BIT_ID'=>$id)); // id de la Bitácora.
+		$bitacora = Bitacora::model()->findAll();
+
+		if(isset($_POST['Bitacora']))
+		{
+			foreach($bitacora as $bitacora) // recorre las bitácoras.
+			{
+				if($alumno->BIT_ID == $bitacora->BIT_ID)
+				{
+					$bitacora->attributes=$_POST['bitacora']; // recive los datos de alumno
+
+					$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
+				}
+			}
+		}
+
+		/*if($bitacora->save())
+						{
+							Yii::app()->user->setFlash('success','<div class="alert alert-success">
+	  						<strong>Felicidades!</strong> Se han guardado los datos correctamente.
+							</div>');
+						} */
+
+		$this->render('editar', array('alumno'=>$alumno, 'bitacora'=>$bitacora));
 	}
 
 	public function actionEliminar($id)
@@ -108,7 +131,7 @@ class BitacoraController extends Controller
 
 	public function actionVer($id)
 	{
-		$alumno = BitAdmin::model()->findByAttributes(array('PRA_ID'=>$id)); // id de la Práctica.
+		$alumno = BitAdmin::model()->findByAttributes(array('BIT_ID'=>$id)); // id de la Bitácora.
 
 		$this->render('ver', array('alumno'=>$alumno));
 	}
