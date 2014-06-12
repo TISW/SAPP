@@ -101,7 +101,7 @@ class BitacoraController extends Controller
 		$alumno = BitAdmin::model()->findByAttributes(array('BIT_ID'=>$id)); // id de la Bitácora.
 		$bitacora = Bitacora::model()->findAll();
 
-		if(isset($_POST['Bitacora']))
+		/*if(isset($_POST['Bitacora']))
 		{
 			foreach($bitacora as $bitacora) // recorre las bitácoras.
 			{
@@ -112,7 +112,7 @@ class BitacoraController extends Controller
 					$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
 				}
 			}
-		}
+		}*/
 
 		/*if($bitacora->save())
 						{
@@ -121,7 +121,7 @@ class BitacoraController extends Controller
 							</div>');
 						} */
 
-		$this->render('editar', array('alumno'=>$alumno, 'bitacora'=>$bitacora));
+		$this->render('editar', array('alumno'=>$alumno));
 	}
 
 	public function actionEliminar($id)

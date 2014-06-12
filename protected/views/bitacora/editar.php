@@ -23,8 +23,8 @@ $this->breadcrumbs=array(
 
       	
       	<div class="panel-body"> <!-- Mostrar la bitácora del alumno..-->
-      		<?php echo $form->textFieldControlGroup($bitacora, 'BIT_TITULO') ?>
-      		<?php echo $form->textAreaControlGroup($bitacora, 'BIT_CONTENIDO') ?>
+      		<?php echo $form->textFieldControlGroup($alumno, 'BIT_TITULO') ?>
+      		<?php echo $form->textAreaControlGroup($alumno, 'BIT_CONTENIDO') ?>
       		<?php //echo $form->$dropDownListControlGroup($alumno, 'BIT_ESTADO', array('readonly'=>'false')) ?>
       		<div align="center">
       		<?php echo BsHtml::submitButton('Enviar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY));?>
