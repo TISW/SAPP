@@ -93,22 +93,24 @@ class BitacoraController extends Controller
 
 			}
 
-		$this->render('agregar', array('model'=>$bitacora,));
+		$this->render('agregar', array('model'=>$bitacora));
 	}
 
-	public function actionEditar()
+	public function actionEditar($id)
 	{
 		$this->render('editar');
 	}
 
-	public function actionEliminar()
+	public function actionEliminar($id)
 	{
 		$this->render('eliminar');
 	}
 
-	public function actionVer()
+	public function actionVer($id)
 	{
-		$this->render('ver');
+		$alumno = BitAdmin::model()->findByAttributes(array('PRA_ID'=>$id)); // id de la Práctica.
+
+		$this->render('ver', array('alumno'=>$alumno));
 	}
 
 }
