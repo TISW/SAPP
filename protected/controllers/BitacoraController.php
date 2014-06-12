@@ -63,17 +63,26 @@ class BitacoraController extends Controller
 			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2));	
 	}
 
-	public function actionAgregar($id)
+	public function actionAgregar()
 	{
-		$bitacora=new Bitacora;
+		$persona = BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //id de la persona que ingreso.
+		$bitacora=new Bitacora; //Bitácora vacia, donde se insertará la nueva.
+		$nuevo = BitAdmin::model()->findAll(); // Tiene todas las Bitácoras y los ID de la vista.
 		
 		if (isset($_POST['Bitacora']))  //existe la vista
 			{
 				$bitacora->attributes=$_POST['Bitacora']; //recibir todos los atributos que voy a modificar
 
 				//guardar datos de la Bitacora
-				$bitacora->PRA_ID = $id;
-				$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
+				foreach ($nuevo as $nuevo) // recorre Todas las Bitácoras
+				{ 
+					if($persona->PER_ID == $nuevo->PER_ID)
+					{
+				
+						$bitacora->PRA_ID = $nuevo->PRA_ID;
+						$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
+					}
+				}
 
 				if($bitacora->save())
 						{

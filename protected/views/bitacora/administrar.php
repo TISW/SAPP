@@ -78,9 +78,9 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
         
         <!-- Mostrar las bitácoras del alumno en particular-->
         <?php //var_dump($bitacora->PER_ID) //tiene el ID de la persona?> 
-        <?php foreach ($nuevo as $bit):?> <!--Recorro el arreglo nuevo-->
-                <?php echo $bit->PER_ID?>
-        <?php endforeach; ?>
+        <?php //foreach ($nuevo as $bit):?> <!--Recorro el arreglo nuevo-->
+                <?php //echo $bit->PER_ID?>
+        <?php //endforeach; ?>
         
           <table class="table">
           <thead>
