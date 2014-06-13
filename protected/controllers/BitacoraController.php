@@ -24,7 +24,7 @@ class BitacoraController extends Controller
 				'users'=>array('admin'),
 			),
 			array('allow', 
-				'actions'=>array('index','agregar', 'administrar'), //permite el ingreso a... al alumno
+				'actions'=>array('index','agregar', 'administrar', 'editar'), //permite el ingreso a... al alumno
 				'users'=>array('alumno'),
 			),
 			array('allow',
@@ -50,7 +50,11 @@ class BitacoraController extends Controller
 
 		if(Yii::app()->user->name == 'admin')
 		{
-			$bitacora=BitAdmin::model()->findAll();
+			$bitacora=new BitAdmin;
+			if(isset($_GET['BitAdmin']))
+			{
+				$bitacora->attributes=$_GET['BitAdmin'];				
+			}
 		}
 		if(Yii::app()->user->name == 'profesor')
 		{
@@ -60,7 +64,10 @@ class BitacoraController extends Controller
 		{
 			$bitacora=BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //Guarda el ID de la persona
 		}
-			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2));	
+		
+
+		$buscar=($bitacora->PER_NOMBRE=='')?BitAdmin::model()->findAll():BitAdmin::model()->findAll("PER_NOMBRE Like '%$bitacora->PER_NOMBRE%'");
+		$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2, 'buscar'=>$buscar));	
 	}
 
 	public function actionAgregar()
@@ -99,29 +106,30 @@ class BitacoraController extends Controller
 	public function actionEditar($id)
 	{
 		$alumno = BitAdmin::model()->findByAttributes(array('BIT_ID'=>$id)); // id de la Bitácora.
-		$bitacora = Bitacora::model()->findAll();
+		$nueva = Bitacora::model()->findByAttributes(array('BIT_ID'=>$id)); // acceso a la parte fisica de la BD.
 
-		/*if(isset($_POST['Bitacora']))
+		if(isset($_POST['BitAdmin']))
 		{
-			foreach($bitacora as $bitacora) // recorre las bitácoras.
-			{
-				if($alumno->BIT_ID == $bitacora->BIT_ID)
-				{
-					$bitacora->attributes=$_POST['bitacora']; // recive los datos de alumno
+			
+			//se recupera los datos ingresado por teclado
+			$alumno->attributes=$_POST['BitAdmin'];
 
-					$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
-				}
-			}
-		}*/
+			$nueva->BIT_ID = $alumno->BIT_ID;
+			$nueva->BIT_TITULO = $alumno->BIT_TITULO;
+			$nueva->BIT_CONTENIDO = $alumno->BIT_CONTENIDO;
+			$nueva->BIT_ESTADO = $alumno->BIT_ESTADO;
+			$nueva->BIT_INGRESO=date("Y-m-d H:i:s");
 
-		/*if($bitacora->save())
+
+			if($nueva->save())
 						{
 							Yii::app()->user->setFlash('success','<div class="alert alert-success">
 	  						<strong>Felicidades!</strong> Se han guardado los datos correctamente.
 							</div>');
-						} */
+						} 
+		}
 
-		$this->render('editar', array('alumno'=>$alumno));
+		$this->render('editar', array('alumno'=>$alumno, 'nueva'=>$nueva));
 	}
 
 	public function actionEliminar($id)
