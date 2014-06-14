@@ -53,7 +53,7 @@ class AlumnosController extends Controller
 		//$model=new Persona();
 		//$this->render('ingresarAlumno',array("model"=>$model));
 
-		$alumno=new Persona;
+		$alumno=new Persona('create');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($alumno);

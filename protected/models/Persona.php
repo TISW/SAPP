@@ -45,7 +45,7 @@ class Persona extends CActiveRecord
 			array('PER_TELEFONO', 'length', 'max'=>20),
 
 			array('PER_RUT', 'validateRut'),
-			array('PER_RUT','ifrutexists', 'exists'=> 'nonexists'),
+			array('PER_RUT','ifrutexists', 'exists'=> 'nonexists','on'=>'create'),
 			array('PER_CORREO', 'dominio'),
 
 			// The following rule is used by search().
@@ -182,10 +182,6 @@ public function validateRut($attribute, $params) {/*
     */
     if(strlen($this->$attribute)==12){
     $rut = str_split($this->$attribute);
-
-    var_dump($rut);
-
-
 	$suma=0;
 	$suma += $rut[9]*2;
 	$suma += $rut[8]*3;
@@ -197,7 +193,6 @@ public function validateRut($attribute, $params) {/*
 	$suma += $rut[0]*3;
 	$resto = $suma % 11;
     $dv = 11 - $resto;
-var_dump($dv);
     if($dv == 11){
         $dv=0;
     }else if($dv == 10){
@@ -310,13 +305,13 @@ public function dominio($attribute,$params){
 	public function attributeLabels()
 	{
 		return array(
-			'PER_ID' => 'Per',
-			'CAR_CODIGO' => 'Car Codigo',
-			'PER_RUT' => 'Per Rut',
-			'PER_NOMBRE' => 'Per Nombre',
-			'PER_CORREO' => 'Per Correo',
-			'PER_TELEFONO' => 'Per Telefono',
-			'PER_ROLE' => 'Per Role',
+			'PER_ID' => 'Persona',
+			'CAR_CODIGO' => 'Carrera',
+			'PER_RUT' => 'Rut',
+			'PER_NOMBRE' => 'Nombre',
+			'PER_CORREO' => 'Correo',
+			'PER_TELEFONO' => 'Telefono',
+			'PER_ROLE' => 'Role',
 		);
 	}
 
