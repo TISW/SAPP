@@ -7,16 +7,13 @@
 				<!-- Si es Admin -->
 				
 				<?php if (Yii::app()->user->name == 'admin') echo '
-            	<li><a href="'.Yii::app()->createUrl('Bitacora/Administrar').'">Bitácoras</a></li>
-            	<li><a href="'.Yii::app()->createUrl('Bitacora/Agregar').'">Agregar Bitácoras</a></li>
-            	<li><a href="'.Yii::app()->createUrl('Bitacora/Buscar').'">Buscar Bitácoras</a></li>
-            	<li><a href="'.Yii::app()->createUrl('Bitacora/Editar').'">Editar Bitácoras</a></li>
-            	<li><a href="'.Yii::app()->createUrl('Bitacora/Eliminar').'">Eliminar Bitácoras</a></li>'
+            	<li><a href="'.Yii::app()->createUrl('Bitacora/Administrar').'">Bitácoras</a></li>'
             	?>
 				
 				<!-- Si es Alumno -->
 				<?php if (Yii::app()->user->name == 'alumno') echo '
-            	<li><a href="'.Yii::app()->createUrl('Bitacora/Agregar').'">Bitácora</a></li>'
+				<li><a href="'.Yii::app()->createUrl('Bitacora/Administrar').'">Bitácoras</a></li>
+            	<li><a href="'.Yii::app()->createUrl('Bitacora/Agregar').'">Agregar Bitácoras</a></li>'
             	
             	?>
 			</ul>
