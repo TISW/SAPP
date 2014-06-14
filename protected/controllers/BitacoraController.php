@@ -134,7 +134,10 @@ class BitacoraController extends Controller
 
 	public function actionEliminar($id)
 	{
-		$this->render('eliminar');
+		$model=Bitacora::model()->findByAttributes(array('BIT_ID'=>$id));
+			//$num=$model->NOT_ID;
+			$model->delete();
+			$this->redirect(array('administrar'));
 	}
 
 	public function actionVer($id)
