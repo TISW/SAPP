@@ -33,8 +33,35 @@ class Ofrece extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CAR_CODIGO, NOT_ID, OFR_INICIO, OFR_TERMINO, OFR_ESTADO', 'required'),
+			array('CAR_CODIGO, NOT_ID, OFR_INICIO, OFR_TERMINO, OFR_ESTADO', 'required','message'=>'{attribute} no puede quedar en blanco.'),
 			array('CAR_CODIGO, NOT_ID', 'length', 'max'=>10),
+			array(		
+                  'OFR_INICIO',
+                  'compare',
+                  'compareAttribute'=>'OFR_TERMINO',
+                  'operator'=>'<=', 
+                  'allowEmpty'=>false , 
+                  'message'=>'{attribute} no puede ser mayor que la fecha de término "{compareValue}".',
+                  'on'=>'create',
+                ),
+			array(		
+                  'OFR_INICIO',
+                  'compare',
+                  'compareValue'=>date("Y-m-d"),
+                  'operator'=>'>=', 
+                  'allowEmpty'=>false , 
+                  'message'=>'{attribute} no puede ser menor que la fecha de hoy "{compareValue}".',
+                  'on'=>'create',
+                ),
+			array(		
+                  'OFR_TERMINO',
+                  'compare',
+                  'compareValue'=>date('Y-m-d', strtotime(' + 1 year')),
+                  'operator'=>'<=', 
+                  'allowEmpty'=>false , 
+                  'message'=>'{attribute} no puede ser mayor a un año "{compareValue}".',
+                  'on'=>'create',
+                ),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('OFR_ID, CAR_CODIGO, NOT_ID, OFR_INICIO, OFR_TERMINO, OFR_ESTADO', 'safe', 'on'=>'search'),

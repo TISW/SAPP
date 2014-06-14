@@ -175,7 +175,7 @@ class UsuarioController extends Controller
 		}
 		if (Yii::app()->user->name == 'alumno')
 		{
-			$this->redirect(Yii::app()->createUrl('Bitacora/agregar'));
+			$this->redirect(Yii::app()->createUrl('Bitacora/administrar'));
 		}
 		if(Yii::app()->user->name == 'profesor')
 		{

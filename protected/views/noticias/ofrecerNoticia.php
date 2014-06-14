@@ -1,21 +1,79 @@
+<?php
+$panel=$this->beginWidget('bootstrap.widgets.BsPanel', array(
+    'title' => 'Agregar Noticia',
+    'type' => BsHtml::PANEL_TYPE_PRIMARY
+));
+?>
+
 <?php $form=$this->beginWidget('bootstrap.widgets.BsActiveForm', array(
     'id'=>'ofrece-form',
-    // Please note: When you enable ajax validation, make sure the corresponding
-    // controller action is handling ajax validation correctly.
-    // There is a call to performAjaxValidation() commented in generated controller code.
-    // See class documentation of CActiveForm for details on this.
-    'enableAjaxValidation'=>false,
+    'layout' => BsHtml::FORM_LAYOUT_HORIZONTAL,
+    'enableAjaxValidation'=>true,
+
 )); ?>
     <p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>
         <?php echo $form->errorSummary($model); ?>
         <?php echo $form->textFieldControlGroup(Noticias::model()->findByPk($model->NOT_ID), 'NOT_TITULO', array('disabled' => true));?>
         <?php echo $form->dropDownListControlGroup($model,'CAR_CODIGO',CHtml::listData(Carrera::model()->findAll(),'CAR_CODIGO','CAR_NOMBRE'), array('empty' => 'Elija la Carrera')); ?>
-        <label>Fecha Inicio*</label>
-        <?php echo $form->dateField($model,'OFR_INICIO'); ?>
+        <?php echo $form->textFieldControlGroup($model,'OFR_INICIO'); ?>
+        <?php echo $form->textFieldControlGroup($model,'OFR_TERMINO'); ?>
+
+        <!--<div class="form-group">
+          <label class="control-label col-lg-2 required" for="Ofrece_OFR_INICIO">
+           Fecha Inicio <span class="required">*</span>
+          </label><div class="col-lg-10">
+          <input type="text" name="Ofrece[OFR_INICIO]" id="Ofrece_OFR_INICIO" class="form-control" placeholder="Fecha Inicio"><p id="Ofrece_OFR_INICIO_em_" style="display:none" class="help-block"></p>
+          </div>
+          </div>-->
+
+
+
+       <!-- <label>Fecha Inicio*</label>
+        <?php 
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+         'model'=>$model,
+         'attribute'=>'OFR_INICIO',
+         'value'=>$model->OFR_INICIO,
+         'language' => 'es',
+         'htmlOptions' => array('class'=>'form-control','type'=>'date'),     
+         'options'=>array(
+           'autoSize'=>true,
+           'defaultDate'=>$model->OFR_INICIO,
+           'dateFormat'=>'yy-mm-dd',
+
+           'selectOtherMonths'=>true,
+           'showAnim'=>'slide',
+           'showButtonPanel'=>true,
+
+           'showOtherMonths'=>true,
+           'changeMonth' => 'true',
+           'changeYear' => 'true',
+         )
+       )); 
+    ?>
         <br>
-        <label>Fecha Termino*</label>
-        <?php echo $form->dateField($model,'OFR_TERMINO'); ?>
-        <br>
+        <label>Fecha Termino*</label>        <?php 
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+         'model'=>$model,
+         'attribute'=>'OFR_TERMINO',
+         'value'=>$model->OFR_TERMINO,
+         'language' => 'es',
+         'htmlOptions' => array('class'=>'form-control','type'=>'date'),     
+         'options'=>array(
+           'autoSize'=>true,
+           'defaultDate'=>$model->OFR_TERMINO,
+           'dateFormat'=>'yy-mm-dd',
+           'max'=>'0000-00-00',
+           'selectOtherMonths'=>true,
+           'showAnim'=>'slide',
+           'showButtonPanel'=>true,
+
+           'showOtherMonths'=>true,
+           'changeMonth' => 'true',
+           'changeYear' => 'true',
+         )
+       )); 
+    ?>-->
         <?php echo $form->dropDownListControlGroup($model,'OFR_ESTADO',array('Activo'=>'Activo','Inactivo'=>'Inactivo')); ?>
             <?php echo BsHtml::submitButton('Agregar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY)); ?>
 <?php $this->endWidget(); ?>
@@ -42,13 +100,12 @@
                   <center>
                     <div class="btn-group">
                       <div class="input-group">
-                        <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
-                          <span class="glyphicon glyphicon-cog"></span>
+                        <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">
+                          <span class="glyphicon glyphicon-remove"></span>
                         </button>
                         <ul class="dropdown-menu pull-right">
-                        <li><a href="<?php echo Yii::app()->createUrl("Usuario/editar/$datos->OFR_ID"); ?>">Editar Usuario</a></li>
                           <!--trigger Modal-->
-                          <li data-toggle="modal" data-target="#questionDelete<?php echo $datos->OFR_ID?>"><a>Eliminar Usuario</a></li>
+                          <li data-toggle="modal" data-target="#questionDelete<?php echo $datos->OFR_ID?>"><a>Eliminar Publicación</a></li>
                         </ul>
                       </div> 
                     </div>
@@ -61,7 +118,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Eliminar Ususario</h4>
+                    <h4 class="modal-title">Eliminar Publicación</h4>
                   </div>
                   <div class="modal-body">
                     Desea realmente eliminar La publicación <?php echo Noticias::model()->findByPk($datos->NOT_ID)->NOT_TITULO;?> para <?php echo Carrera::model()->findByPk($datos->CAR_CODIGO)->CAR_NOMBRE;?>
@@ -79,3 +136,6 @@
         </table>
               </div>
             </div>
+            <?php
+$this->endWidget();
+?>

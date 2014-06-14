@@ -11,6 +11,7 @@
     // There is a call to performAjaxValidation() commented in generated controller code.
     // See class documentation of CActiveForm for details on this.
     'enableAjaxValidation'=>true,
+        'layout' => BsHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
     <p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>

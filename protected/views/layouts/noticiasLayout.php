@@ -5,9 +5,7 @@
 			<ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 				<!--Redirecciona a páginas.. (controlador/acccion)-->
 				<li><a href="<?php echo Yii::app()->createUrl('Noticias/AgregarNoticia'); ?>">Agregar Noticia</a></li> 
-				<li><a href="<?php echo Yii::app()->createUrl('Noticias/AdministrarNoticia'); ?>">Administrar Noticias</a></li>
-				<li><a href="<?php echo Yii::app()->createUrl('Noticias/publicarNoticia'); ?>">Publicar Noticia</a></li>
-				<li><a href="<?php echo Yii::app()->createUrl('Noticias/AdministrarPublicacionesNoticia'); ?>">Administrar Publicaciones de Noticias</a></li>
+				<li><a href="<?php echo Yii::app()->createUrl('Noticias/AdministrarNoticia'); ?>">Administrar Noticias</a></li>			
 			</ul>
 		</div>
 		<div class="col-xs-12 col-sm-10 col-md-10">
