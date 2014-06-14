@@ -27,6 +27,7 @@ class LoginForm extends CFormModel
 		return array(
 			// username and password are required
 			array('username, password', 'required','message'=>'Debe ingresar {attribute}.'),
+			array('username','length','is'=>12,'message'=>'El rut tiene exactamente 9 caracteres, sin contar puntos ni guiones.'),
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
 			// password needs to be authenticated

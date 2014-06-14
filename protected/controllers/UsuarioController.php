@@ -93,19 +93,23 @@ class UsuarioController extends Controller
 		if(isset($_POST['Usuario']))
 		{
 			$user->attributes=$_POST['Usuario'];
-			if ($user->USU_PASSWORD=='') {
+			if ($user->USU_PASSWORD==''&&$user->PER_ID!=null) {
 				//si no se le asigna Contraseña Guarda los primeros 5 digitos del rut
 				$usu=Persona::model()->findByAttributes(array('PER_ID'=>$user->PER_ID));
 				$user->USU_PASSWORD=substr($usu->PER_RUT,0,2).substr($usu->PER_RUT,3,3);
 			}
-			$user->USU_PASSWORD=md5($user->USU_PASSWORD);
+
+			if (strlen($user->USU_PASSWORD)>=5) {
+				$user->USU_PASSWORD=md5($user->USU_PASSWORD);
+			}
 			$user->USU_CREATE=date('Y-m-d H:i:s');
 			$user->USU_MODIFIED=date('Y-m-d H:i:s');
 			if($user->save())
 			{
 				$this->redirect(array('administrar'));
 			}
-			$user->USU_PASSWORD=null;
+			$user->USU_PASSWORD='';
+
 		}
 
 		if(Yii::app()->user->name == 'admin')
@@ -118,6 +122,7 @@ class UsuarioController extends Controller
 		}
 		if($personas==null)
 			throw new CHttpException(500,'No se puede acceder a la pagina solicitada,No existen Personas en el sistema que se les pueda asignar un usuario');
+		
 		$this->render('crear',array('user'=>$user,'personas'=>$personas));
 	}
 	/**
@@ -139,7 +144,9 @@ class UsuarioController extends Controller
 			$nuevo->attributes=$_POST['Usuario'];
 			if($nuevo->USU_PASSWORD!='')
 			{
-				$user->USU_PASSWORD=md5($nuevo->USU_PASSWORD);
+				if (strlen($user->USU_PASSWORD)>=5) {
+				$user->USU_PASSWORD=md5($user->USU_PASSWORD);
+			}
 			}
 			$user->USU_MODIFIED=date('Y-m-d H:i:s');
 			$user->save();

@@ -48,9 +48,9 @@ class Usuario extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PER_ID, USU_PASSWORD', 'required'),
+			array('PER_ID, USU_PASSWORD', 'required','message'=>'No puede estar el campo {attribute} vacio.'),
 			array('PER_ID', 'length', 'max'=>10),
-			array('USU_PASSWORD', 'length', 'max'=>32),
+			array('USU_PASSWORD', 'length', 'max'=>32,'min'=>5,'tooShort'=>'La contraseña es muy corta, se nesesitan al menos 5 caracteres.','tooLong'=>'La contraseña es muy larga'),
 			array('USU_ESTADO', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -76,11 +76,11 @@ class Usuario extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'PER_ID' => 'Per',
-			'USU_PASSWORD' => 'Usu Password',
-			'USU_CREATE' => 'Usu Create',
-			'USU_MODIFIED' => 'Usu Modified',
-			'USU_ESTADO' => 'Usu Estado',
+			'PER_ID' => 'Persona',
+			'USU_PASSWORD' => 'Contraseña',
+			'USU_CREATE' => 'Fecha de Creación',
+			'USU_MODIFIED' => 'Fecha de Modificación',
+			'USU_ESTADO' => 'Estado',
 		);
 	}
 
