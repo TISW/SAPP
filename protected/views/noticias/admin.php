@@ -18,12 +18,6 @@ $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
 });
-$('.search-form form').submit(function(){
-	$('#noticias-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
 ");
 ?>
 
@@ -63,15 +57,34 @@ $this->beginWidget('bootstrap.widgets.BsPanel', array(
                   <span class="glyphicon glyphicon-cog"></span>
                 </button>
                 <ul class="dropdown-menu pull-right">
-                <li><a href="<?php echo Yii::app()->createUrl("Usuario/editar/$user->NOT_ID"); ?>">Editar Usuario</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl("Noticias/update/$user->NOT_ID"); ?>">Editar Noticia</a></li>
                   <!--trigger Modal-->
-                  <li data-toggle="modal" data-target="#questionDelete<?php echo $user->NOT_ID?>"><a>Eliminar Usuario</a></li>
+                  <li data-toggle="modal" data-target="#questionDelete<?php echo $user->NOT_ID?>"><a>Eliminar Noticia</a></li>
                 </ul>
               </div> 
             </div>
           </center>
         </td>
       </tr>
+                <!-- Modal -->
+    <div class="modal fade" id="questionDelete<?php echo $user->NOT_ID?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Eliminar Noticia</h4>
+          </div>
+          <div class="modal-body">
+            Desea realmente eliminar a <?php echo $user->NOT_TITULO;?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='<?php echo Yii::app()->createUrl("Noticias/eliminar/$user->NOT_ID"); ?>'">Eliminar de todas Formas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin de Modal-->
               <!-- Modal -->
     <!--Fin de Modal-->
     <?php endforeach; ?>
@@ -80,6 +93,9 @@ $this->beginWidget('bootstrap.widgets.BsPanel', array(
     </div>
 </div>
 <?php
+    foreach(Yii::app()->user->getFlashes() as $key => $message) {
+        echo $message;
+    }
 $this->endWidget();
 ?>
 

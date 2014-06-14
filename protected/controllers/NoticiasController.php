@@ -32,7 +32,7 @@ class NoticiasController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','AgregarNoticia','AdministrarNoticia','OfrecerNoticia','eliminarOfrecimiento'),
+				'actions'=>array('create','update','AgregarNoticia','AdministrarNoticia','OfrecerNoticia','eliminarOfrecimiento','eliminar'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -124,19 +124,17 @@ class NoticiasController extends Controller
 	* If deletion is successful, the browser will be redirected to the 'admin' page.
 	* @param integer $id the ID of the model to be deleted
 	*/
-	public function actionDelete($id)
+	public function actionEliminar($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		if(ofrece::model()->exists("NOT_ID=$id")){
+			Yii::app()->user->setFlash('error',BsHtml::alert(BsHtml::ALERT_COLOR_DANGER, BsHtml::bold('Error al Eliminar ') . 'La que intento eliminar, se encuentra ofrecida a una o mas carreras.'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('AdministrarNoticia'));
 		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		else{
+			$this->loadModel($id)->delete();
+			Yii::app()->user->setFlash('error',BsHtml::alert(BsHtml::ALERT_COLOR_SUCCESS, BsHtml::bold('Éxito al eliminar ') . 'La noticia se ha eliminado con exito.'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('AdministrarNoticia'));
+		}
 	}
 
 	public function actioneliminarOfrecimiento($id)
@@ -156,7 +154,6 @@ class NoticiasController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
-
 	/**
 	* Manages all models.
 	*/
@@ -180,7 +177,7 @@ class NoticiasController extends Controller
 	{
 		$model=Noticias::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'La solitud no se encuentra disponible');
 		return $model;
 	}
 

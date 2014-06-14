@@ -50,7 +50,7 @@ class Ofrece extends CActiveRecord
                   'compareValue'=>date("Y-m-d"),
                   'operator'=>'>=', 
                   'allowEmpty'=>false , 
-                  'message'=>'{attribute} no puede ser menos que la fecha de hoy "{compareValue}".',
+                  'message'=>'{attribute} no puede ser menor que la fecha de hoy "{compareValue}".',
                   'on'=>'create',
                 ),
 			array(		
