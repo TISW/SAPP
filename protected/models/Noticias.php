@@ -29,8 +29,16 @@ class Noticias extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOT_TITULO, NOT_CONTENIDO', 'required'),
+			array('NOT_TITULO, NOT_CONTENIDO', 'required','message'=>'{attribute} no puede estar vacio.'),
 			array('NOT_TITULO', 'length', 'max'=>100),
+			array(	'NOT_TITULO', 'match', 
+					'not' => true, 
+					'pattern' => '/[^a-zA-Z ]/',
+					'message' => 'En el {attribute}, solos se pueden usar letras y espacios.'),
+			array(	'NOT_CONTENIDO', 'match', 
+					'not' => true, 
+					'pattern' => '/[^a-zA-Z0-9 *-+,.]/',
+					'message' => 'En el {attribute} solo se pueden usar letras, numeros, espacios y algunos simbolos como (*,-.+)', 'on' => 'create'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('NOT_ID, NOT_TITULO, NOT_CONTENIDO', 'safe', 'on'=>'search'),

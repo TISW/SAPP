@@ -20,7 +20,7 @@ class BitacoraController extends Controller
 				'users'=>array('*'), //todos
 			),
 			array('allow', 
-				'actions'=>array('index','view','administrar','agregar','buscar','editar','eliminar'), //permite el ingreso a... al admin.
+				'actions'=>array('index','view','administrar','agregar','buscar','editar','eliminar','ver'), //permite el ingreso a... al admin.
 				'users'=>array('admin'),
 			),
 			array('allow', 
@@ -41,24 +41,48 @@ class BitacoraController extends Controller
 		);
 	}
 
+	//funciones*
 
 	public function actionAdministrar()
 	{
-		$bitacora=Bitacora::model()->findAll();
-		$this->render('administrar',array('bitacora'=>$bitacora));		
+		$nuevo = BitAdmin::model()->findAll(); //Guarda todas las Bitácoras
+		$bitacora2= new BitAdmin();
+
+		if(Yii::app()->user->name == 'admin')
+		{
+			$bitacora=BitAdmin::model()->findAll();
+		}
+		if(Yii::app()->user->name == 'profesor')
+		{
+			$bitacora=BitAdmin::model()->findByAttributes(array('CAR_CODIGO'=>Yii::app()->user->carrera));
+		}
+		if(Yii::app()->user->name == 'alumno')
+		{
+			$bitacora=BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //Guarda el ID de la persona
+		}
+			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2));	
 	}
 
-	public function actionAgregar($id)
+	public function actionAgregar()
 	{
-		$bitacora=new Bitacora;
+		$persona = BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //id de la persona que ingreso.
+		$bitacora=new Bitacora; //Bitácora vacia, donde se insertará la nueva.
+		$nuevo = BitAdmin::model()->findAll(); // Tiene todas las Bitácoras y los ID de la vista.
 		
 		if (isset($_POST['Bitacora']))  //existe la vista
 			{
 				$bitacora->attributes=$_POST['Bitacora']; //recibir todos los atributos que voy a modificar
 
 				//guardar datos de la Bitacora
-				$bitacora->PRA_ID = $id;
-				$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
+				foreach ($nuevo as $nuevo) // recorre Todas las Bitácoras
+				{ 
+					if($persona->PER_ID == $nuevo->PER_ID)
+					{
+				
+						$bitacora->PRA_ID = $nuevo->PRA_ID;
+						$bitacora->BIT_INGRESO=date("Y-m-d H:i:s");
+					}
+				}
 
 				if($bitacora->save())
 						{
@@ -69,24 +93,24 @@ class BitacoraController extends Controller
 
 			}
 
-		$this->render('agregar', array('model'=>$bitacora,));
-
+		$this->render('agregar', array('model'=>$bitacora));
 	}
 
-	public function actionBuscar()
-	{
-		$this->render('buscar');
-	}
-
-	public function actionEditar()
+	public function actionEditar($id)
 	{
 		$this->render('editar');
 	}
 
-	public function actionEliminar()
+	public function actionEliminar($id)
 	{
 		$this->render('eliminar');
 	}
 
-	
+	public function actionVer($id)
+	{
+		$alumno = BitAdmin::model()->findByAttributes(array('PRA_ID'=>$id)); // id de la Práctica.
+
+		$this->render('ver', array('alumno'=>$alumno));
+	}
+
 }
