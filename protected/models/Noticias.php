@@ -31,10 +31,11 @@ class Noticias extends CActiveRecord
 		return array(
 			array('NOT_TITULO, NOT_CONTENIDO', 'required','message'=>'{attribute} no puede estar vacio.'),
 			array('NOT_TITULO', 'length', 'max'=>100),
+			array('NOT_TITULO,NOT_CONTENIDO', 'length','min'=>5,'tooShort'=>'{attribute} es muy corto.'),
 			array(	'NOT_TITULO', 'match', 
 					'not' => true, 
-					'pattern' => '/[^a-zA-Z ]/',
-					'message' => 'En el {attribute}, solos se pueden usar letras y espacios.'),
+					'pattern' => '/[^a-zA-Z0-9 ]/',
+					'message' => 'En el {attribute}, solos se pueden usar numero, letras y espacios.'),
 			array(	'NOT_CONTENIDO', 'match', 
 					'not' => true, 
 					'pattern' => '/[^a-zA-Z0-9 *-+,.]/',
