@@ -108,7 +108,27 @@ class PracticasController extends Controller
 
 	public function actionCrearPractica() // viene de practicasLayout 
 	{
-		$this->render('crearPractica');
+		$model=new Practica;
+
+		if(isset($_POST['Practica']))
+		{
+			$model->attributes=$_POST['Practica'];
+			$model->PRA_ESTPRACTICA='Pendiente';
+			$model->PRA_ESTF1=0;
+			$model->PRA_ESTF3=0;
+			$model->PRA_ESTINFORME=0;echo var_dump($model->PRA_TIPO);
+
+			
+			if($model->save()){Yii::app()->user->setFlash('success','<div class="alert alert-success">
+	  						<strong>Felicidades!</strong> Se han guardado los datos correctamente.
+							</div>');}
+				//$this->redirect('index');
+			else {echo "<script>alert('Registro almecenado correctamente')</script>";}
+		}
+
+		$this->render('crearPractica',array(
+			'model'=>$model,
+		));
 	}
 
 	public function actionAdministrar()
