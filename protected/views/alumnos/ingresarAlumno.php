@@ -26,33 +26,18 @@ $this->breadcrumbs=array(
 <?php endif; ?>
 
 <div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.BsActiveForm', array(
     'id'=>'users-form',
     'enableAjaxValidation'=>true,
+    'layout' => BsHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
  
-    <?php echo $form->errorSummary($alumno); ?>
-    <div class="form-grup">
-        <?php echo $form->label($alumno,'RUT'); ?><br>
-        <?php echo $form->textField($alumno,'PER_RUT',array('maxlength'=>32,'class'=>"form-control",'placeholder'=>'Ej.1234567-0','required'=>'')) ?>
-
-    </div><br>
-    <div class="form-grup">
-        <?php echo $form->label($alumno,'NOMBRE'); ?><br>
-        <?php echo $form->textField($alumno,'PER_NOMBRE',array('maxlength'=>32,'class'=>"form-control",'placeholder'=>'Nombre','required'=>'')) ?>
-    </div><br>
-    <div class="form-grup">
-        <?php echo $form->label($alumno,'CORREO'); ?><br>
-        <?php echo CHtml::activeEmailField($alumno,'PER_CORREO',array('maxlength'=>32,'class'=>"form-control",'placeholder'=>'Ej.correo@correo.cl','required'=>'')) ?>
-    </div><br>
-    <div class="form-grup">
-        <?php echo $form->label($alumno,'TELEFONO'); ?><br>
-        <?php echo $form->textField($alumno,'PER_TELEFONO',array('maxlength'=>32,'class'=>"form-control",'placeholder'=>'Telefono','required'=>'')) ?>
-    </div><br>
-    
-    <div class="form-grup submit">
-        <br><?php echo CHtml::submitButton('Enviar'); ?>
-    </div>
+    <?php echo $form->errorSummary($alumno); ?>  
+    <?php echo $form->textFieldControlGroup($alumno, 'PER_RUT',array('maxlength'=>12,'placeholder'=>'Ej.1234567-0','required'=>''));?>
+    <?php echo $form->textFieldControlGroup($alumno, 'PER_NOMBRE',array('maxlength'=>32,'placeholder'=>'Nombre','required'=>''));?>
+    <?php echo $form->emailFieldControlGroup($alumno, 'PER_CORREO',array('maxlength'=>32,'placeholder'=>'Ej.correo@correo.cl'));?>
+    <?php echo $form->textFieldControlGroup($alumno, 'PER_TELEFONO',array('maxlength'=>20,'placeholder'=>'Telefono'));?>
+    <?php echo BsHtml::formActions(array(BsHtml::submitButton('Ingresar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY))));?>
  
 <?php $this->endWidget(); ?>
 </div><!-- form -->
