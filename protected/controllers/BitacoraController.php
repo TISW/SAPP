@@ -24,7 +24,7 @@ class BitacoraController extends Controller
 				'users'=>array('admin'),
 			),
 			array('allow', 
-				'actions'=>array('index','agregar', 'administrar', 'editar'), //permite el ingreso a... al alumno
+				'actions'=>array('index','agregar', 'AdministrarAlumno', 'editar'), //permite el ingreso a... al alumno
 				'users'=>array('alumno'),
 			),
 			array('allow',
@@ -145,6 +145,19 @@ class BitacoraController extends Controller
 		$alumno = BitAdmin::model()->findByAttributes(array('BIT_ID'=>$id)); // id de la Bitácora.
 
 		$this->render('ver', array('alumno'=>$alumno));
+	}
+
+	public function actionAdministrarAlumno()
+	{
+		$nuevo = BitAdmin::model()->findAll(); //Guarda todas las Bitácoras
+		$bitacora2= new BitAdmin();
+
+		if(Yii::app()->user->name == 'alumno')
+		{
+			$bitacora=BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //Guarda el ID de la persona
+		}
+
+		$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2));
 	}
 
 }
