@@ -29,8 +29,8 @@ class AlumnosController extends Controller
 				'users'=>array('@'), // todos, estando autotentificado.
 			),
 			array('allow',
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('admin','eliminar'),
+				'users'=>array('admin','profesor'),
 			),
 			array('deny', //denegar
 				'users'=>array('*'),
@@ -40,7 +40,10 @@ class AlumnosController extends Controller
 
 	public function actionBuscarAlumno()
 	{
-		$this->render('buscarAlumno');
+		$alumnos=persona::model()->findAll('PER_ROLE=:PER_ROLE',array(':PER_ROLE'=>'alumno'));
+		$this->render('buscarAlumno',array('alumnos'=>$alumnos));
+
+		
 	}
 
 	public function actionEditarAlumno()
@@ -94,5 +97,11 @@ class AlumnosController extends Controller
     	self::resolveNameID($model,$attribute,$htmlOptions);
     	self::clientChange('change',$htmlOptions);
     	return self::activeInputField('email',$model,$attribute,$htmlOptions);
+	}
+	
+	public function actionEliminar($model,$id=null)
+	{
+		Persona::model()->findByPk($id)->delete();
+		$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('buscarAlumno'));
 	}
 }

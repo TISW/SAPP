@@ -40,7 +40,8 @@ class EmpresaController extends Controller
 
 	public function actionBuscar()
 	{
-		$this->render('buscar');
+		$empresas=empresa::model()->findAll();
+		$this->render('buscar',array('empresas'=>$empresas));
 	}
 
 	public function actionConvenio()
