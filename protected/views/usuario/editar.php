@@ -19,8 +19,7 @@
 		<?php echo $form->textFieldControlGroup($persona,'PER_TELEFONO',array('maxlength'=>20,'class'=>"form-control",'placeholder'=>'Telefono de Contacto','required'=>'')); ?>
 		<?php if (Yii::app()->user->name == 'admin'||(Yii::app()->user->name == 'profesor'&&Yii::app()->user->ID !=$persona->PER_ID) )
  			echo  $form->dropDownListControlGroup($user,'USU_ESTADO',array('H'=>'Habilitado','N'=>'No Habilitado'),array('options' => array($user->PER_ID=>array('selected'=>true)))); ?> 
-	<?php echo BsHtml::submitButton('Ingresar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY)); ?>
-	</div>
+	    <?php echo BsHtml::formActions(array(BsHtml::submitButton('Ingresar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY))));?>
       </div>
     </div>
 	
