@@ -21,7 +21,7 @@
     <?php echo $form->textFieldControlGroup($model,'NOT_TITULO',array('maxlength'=>100)); ?>
     <?php echo $form->textAreaControlGroup($model,'NOT_CONTENIDO',array('rows'=>6)); ?>
 
-    <?php echo BsHtml::submitButton('Ingresar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY)); ?>
+    <?php echo BsHtml::formActions(array(BsHtml::submitButton('Ingresar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY))));?>
 
 <?php $this->endWidget(); ?>
 

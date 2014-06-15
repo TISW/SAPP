@@ -34,8 +34,7 @@ $this->beginWidget('bootstrap.widgets.BsPanel', array(
 		'NOT_CONTENIDO',
 	),
 )); ?>
-
-<?php echo BsHtml::button('Publicar',array('onclick'=>"window.location = '".Yii::app()->createUrl("Noticias/ofrecerNoticia/$model->NOT_ID")."'"));?>
+<?php echo BsHtml::formActions(array(BsHtml::button('Publicar',array('onclick'=>"window.location = '".Yii::app()->createUrl("Noticias/ofrecerNoticia/$model->NOT_ID")."'"))));?>
 <?php
 $this->endWidget();
 ?>
