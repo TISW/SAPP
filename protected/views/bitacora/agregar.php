@@ -2,6 +2,7 @@
 $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
     'enableAjaxValidation' => true,
     'id' => uniqid('user_'),
+    'layout' => BsHtml::FORM_LAYOUT_HORIZONTAL,
     'htmlOptions' => array(
         'class' => 'bs-example'
     )
@@ -10,6 +11,7 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/validCampoFranz.js',CClientScript::POS_END);
 Yii::app()->clientScript->registerScript('validarCamposEspeciales', "
   $('#Bitacora_BIT_TITULO').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéíóú1234567890-');
+  $('#Bitacora_BIT_TITULO').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéíóú1234567890-_');
   $('#Bitacora_BIT_CONTENIDO').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéíóú1234567890-%;:,@().');
 
 ");
@@ -37,12 +39,25 @@ $this->breadcrumbs=array(
       <form method="post">
       <table>
       <div class="panel-body">
-
                 <?php echo $form->textField($model, 'BIT_TITULO', array('placeholder' => 'Se puede usar: Números, letras y guiones. Ej: Bitácora 02-06-2014', 'prepend'=>'Título*'));?>
                 <br>
                 <?php echo $form->textArea($model, 'BIT_CONTENIDO', array('placeholder' => 'Se puede usar: Números, letras, %, -, @, (). Ej: Hoy 02 de junio avance un 20% de mi práctica', 'prepend'=> 'Contenido' ));?> <!-- AREA DE TEXTO-->
                 <br>
                 <?php echo BsHtml::submitButton('Enviar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY));?>
+                <?php echo $form->textFieldControlGroup($model, 'BIT_TITULO', array('placeholder' => 'Se puede usar: letras y guiones. Ej: Bitácora_01'));?>
+               
+                <?php echo $form->textAreaControlGroup($model, 'BIT_CONTENIDO', array('placeholder' => 'Se puede usar: Números, letras, %, -, @, (). Ej: Hoy 02 de junio avance un 20% de mi práctica'));?> <!-- AREA DE TEXTO-->
+                
+                <?php 
+                echo 
+                    $form->dropDownListControlGroup(
+                      $model,'BIT_ESTADO',
+                      array('Enviada'=>'Enviada','No enviada'=>'No enviada'), 
+                      array('options' => array($model->BIT_ESTADO=>array('selected'=>true)),'class'=>'form-control'));
+              ?>
+                <div align="center">
+                <?php echo BsHtml::submitButton('Enviar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY));?>
+                </div>
       
       </div>
 

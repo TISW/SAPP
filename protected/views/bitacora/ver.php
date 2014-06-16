@@ -28,6 +28,7 @@ $this->breadcrumbs=array(
       		<?php echo $form->textAreaControlGroup($alumno, 'BIT_CONTENIDO', array('readonly'=>'false')) ?>
       		<?php echo $form->textFieldControlGroup($alumno, 'BIT_INGRESO', array('readonly'=>'false')) ?>
       		<?php //echo $form->$textFieldControlGroup($alumno, 'BIT_ESTADO', array('readonly'=>'false')) ?>
+      		<?php //echo $form->$dropDownListControlGroup($alumno, 'BIT_ESTADO', array('readonly'=>'false')) ?>
         </div>
 </div>
 
