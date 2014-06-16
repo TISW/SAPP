@@ -70,17 +70,7 @@ $('.search-button').click(function(){
                               <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->PRA_ID"); ?>">Editar Bitácora</a>
                             </li>
 
-                            <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->PRA_ID"); ?>">Eliminar Bitácora</a>
-                            </li>
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/ver/$bit->BIT_ID"); ?>">Ver Bitácora</a>
-                            </li>
-
-                            <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->BIT_ID"); ?>">Editar Bitácora</a>
-                            </li>
-
-                            <li data-toggle="modal" data-target="#questionDelete<?php echo $bit->BIT_ID?>"><a>Eliminar Bitácora</a></li>
+                             <li data-toggle="modal" data-target="#questionDelete<?php echo $bit->BIT_ID?>"><a>Eliminar Bitácora</a></li>
                           </ul>
                          
                         </div> 

@@ -12,8 +12,8 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
 /* @var $this BitacoraController */
 
 $this->breadcrumbs=array(
-	'Bitacora'=>array('/bitacora'),
-	'Editar',
+  'Bitacora'=>array('/bitacora'),
+  'Editar',
 );
 ?>
 
@@ -23,11 +23,11 @@ $this->breadcrumbs=array(
         <h3 class="panel-title">Bitácora del Alumno <?php echo $alumno->PER_NOMBRE ?></h3>
       </div>
 
-      	
-      	<div class="panel-body"> <!-- Mostrar la bitácora del alumno..-->
-      		<?php echo $form->textFieldControlGroup($alumno, 'BIT_TITULO') ?>
-      		<?php echo $form->textAreaControlGroup($alumno, 'BIT_CONTENIDO') ?>
-      		<?php 
+        
+        <div class="panel-body"> <!-- Mostrar la bitácora del alumno..-->
+          <?php echo $form->textFieldControlGroup($alumno, 'BIT_TITULO') ?>
+          <?php echo $form->textAreaControlGroup($alumno, 'BIT_CONTENIDO') ?>
+          <?php 
                 echo 
                     $form->dropDownListControlGroup(
                       $alumno,'BIT_ESTADO',
@@ -37,6 +37,7 @@ $this->breadcrumbs=array(
                 <div align="center">
                 <?php echo BsHtml::submitButton('Enviar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY));?>
                 </div>
+        </div>
 </div>
 
 <?php } ?>

@@ -65,8 +65,6 @@ class BitacoraController extends Controller
 		{
 			$bitacora=BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //Guarda el ID de la persona
 		}
-			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2));	
-		
 
 		$buscar=($bitacora->PER_NOMBRE=='')?BitAdmin::model()->findAll():BitAdmin::model()->findAll("PER_NOMBRE Like '%$bitacora->PER_NOMBRE%'");
 		$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2, 'buscar'=>$buscar));	
@@ -107,7 +105,6 @@ class BitacoraController extends Controller
 
 	public function actionEditar($id)
 	{
-		$this->render('editar');
 		$alumno = BitAdmin::model()->findByAttributes(array('BIT_ID'=>$id)); // id de la Bitácora.
 		$nueva = Bitacora::model()->findByAttributes(array('BIT_ID'=>$id)); // acceso a la parte fisica de la BD.
 
@@ -137,7 +134,6 @@ class BitacoraController extends Controller
 
 	public function actionEliminar($id)
 	{
-		$this->render('eliminar');
 		$model=Bitacora::model()->findByAttributes(array('BIT_ID'=>$id));
 		$model->delete();
 		$this->redirect(array('administrar'));
@@ -146,8 +142,6 @@ class BitacoraController extends Controller
 	public function actionVer($id)
 	{
 		$alumno = BitAdmin::model()->findByAttributes(array('PRA_ID'=>$id)); // id de la Práctica.
-		$alumno = BitAdmin::model()->findByAttributes(array('BIT_ID'=>$id)); // id de la Bitácora.
-
 		$this->render('ver', array('alumno'=>$alumno));
 	}
 
