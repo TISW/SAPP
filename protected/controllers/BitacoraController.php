@@ -64,9 +64,7 @@ class BitacoraController extends Controller
 		if(Yii::app()->user->name == 'alumno')
 		{
 			$bitacora=BitAdmin::model()->findByAttributes(array('PER_ID'=>Yii::app()->user->ID)); //Guarda el ID de la persona
-		}
-			$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2));	
-		
+		}		
 
 		$buscar=($bitacora->PER_NOMBRE=='')?BitAdmin::model()->findAll():BitAdmin::model()->findAll("PER_NOMBRE Like '%$bitacora->PER_NOMBRE%'");
 		$this->render('administrar', array('bitacora'=>$bitacora, 'nuevo'=>$nuevo, 'bitacora2'=>$bitacora2, 'buscar'=>$buscar));	

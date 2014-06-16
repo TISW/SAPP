@@ -24,8 +24,8 @@ $('.search-button').click(function(){
       </div>
       <div class="panel-body">
 
-        <?php echo $form->textField($bitacora2, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
-        <?php echo BsHtml::submitButton('', array('color' => BsHtml::BUTTON_COLOR_PRIMARY, 'icon' =>BsHtml::GLYPHICON_PLUS));?>
+        <?php //echo $form->textField($bitacora2, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
+        <?php //echo BsHtml::submitButton('', array('color' => BsHtml::BUTTON_COLOR_PRIMARY, 'icon' =>BsHtml::GLYPHICON_PLUS));?>
         <h3 class="panel-title"><?php echo BsHtml::button('Busqueda Avanzada',array('class' =>'search-button', 'icon' => BsHtml::GLYPHICON_SEARCH,'color' => BsHtml::BUTTON_COLOR_PRIMARY), '#'); ?></h3><br>
         <div class="search-form" style="display:none">
             <?php $this->renderPartial('_search',array(
@@ -46,7 +46,7 @@ $('.search-button').click(function(){
             </tr>
           </thead>
           <tbody>
-              <?php foreach ($bitacora as $bit):?>
+              <?php //foreach ($bitacora as $bit):?>
               <?php foreach ($buscar as $bit):?>
               <?php  if($bit->BIT_ESTADO == 'Enviada'){?>
               <tr>
@@ -109,7 +109,7 @@ $('.search-button').click(function(){
             </div>
             <!--Fin de Modal-->
                
-              </tr>
+              <!--</tr>-->
               <?php } ?>
               <?php endforeach; ?>
           </tbody>
