@@ -32,10 +32,21 @@ class Bitacora extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PRA_ID, BIT_INGRESO, BIT_TITULO, BIT_CONTENIDO', 'required'),
-			array('PRA_ID', 'length', 'max'=>10),
+			array('PRA_ID, BIT_INGRESO, BIT_TITULO, BIT_CONTENIDO', 'required','message'=>'{attribute} no puede estar vacio.'),
+			array('PRA_ID, BIT_ESTADO', 'length', 'max'=>11),
 			array('BIT_TITULO', 'length', 'max'=>100),
-			array('BIT_ESTADO', 'length', 'max'=>1),
+			array(	'BIT_TITULO', 'match', 
+					'not' => true, 
+					'pattern' => '/[^a-zA-Z ]/',
+					'message' => 'En el {attribute}, solos se pueden usar letras y espacios.', 'on' => 'create'),
+			array(	'BIT_CONTENIDO', 'match', 
+					'not' => true, 
+					'pattern' => '/[^a-zA-Z0-9 *-+,.]/',
+					'message' => 'En el {attribute} solo se pueden usar letras, numeros, espacios y algunos simbolos como (*,-.+)', 'on' => 'create'),
+			/*array(	'BIT_TITULO', 'match', 
+					'not' => true, 
+					'pattern' => '/[^a-zA-Z]/',
+					'message' => 'En el {attribute}, Al menos debe tener una letra.'),*/
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('BIT_ID, PRA_ID, BIT_INGRESO, BIT_TITULO, BIT_CONTENIDO, BIT_ESTADO', 'safe', 'on'=>'search'),
@@ -65,6 +76,9 @@ class Bitacora extends CActiveRecord
 			'BIT_INGRESO' => 'Fecha Ingreso Bitácora',
 			'BIT_TITULO' => 'Título',
 			'BIT_CONTENIDO' => 'Coontenido',
+			'BIT_INGRESO' => 'Fecha de Ingreso',
+			'BIT_TITULO' => 'Título',
+			'BIT_CONTENIDO' => 'Contenido',
 			'BIT_ESTADO' => 'Estado Bitácora',
 		);
 	}

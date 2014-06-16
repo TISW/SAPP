@@ -3,10 +3,17 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
     'layout' => BsHtml::FORM_LAYOUT_INLINE,
     'enableAjaxValidation' => true,
     'id' => 'user_form_inline',
+    'method'=>'get',
     'htmlOptions' => array(
         'class' => 'bs-example'
     )
 ));
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+  $('.search-form').toggle();
+  return false;
+});");
 ?>
 
 <?php if (Yii::app()->user->name == 'admin'){?>
@@ -17,8 +24,16 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
       </div>
       <div class="panel-body">
 
-        <?php echo $form->textField($bitacora2, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
-        <?php echo BsHtml::submitButton('', array('color' => BsHtml::BUTTON_COLOR_PRIMARY, 'icon' =>BsHtml::GLYPHICON_PLUS));?>
+        <?php //echo $form->textField($bitacora2, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
+        <?php //echo BsHtml::submitButton('', array('color' => BsHtml::BUTTON_COLOR_PRIMARY, 'icon' =>BsHtml::GLYPHICON_PLUS));?>
+        <h3 class="panel-title"><?php echo BsHtml::button('Busqueda Avanzada',array('class' =>'search-button', 'icon' => BsHtml::GLYPHICON_SEARCH,'color' => BsHtml::BUTTON_COLOR_PRIMARY), '#'); ?></h3><br>
+        <div class="search-form" style="display:none">
+            <?php $this->renderPartial('_search',array(
+                'bitacora'=>$bitacora,
+            )); ?>
+        </div>
+        <?php //echo $form->textField($bitacora, 'PER_NOMBRE', array('placeholder' => 'Pablo Morales Alarcón'));?>
+        <?php //echo BsHtml::submitButton('', array('color' => BsHtml::BUTTON_COLOR_PRIMARY, 'icon' =>BsHtml::GLYPHICON_PLUS));?>
         
         <table class="table">
           <thead>
@@ -31,7 +46,9 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
             </tr>
           </thead>
           <tbody>
-              <?php foreach ($bitacora as $bit):?>
+              <?php //foreach ($bitacora as $bit):?>
+              <?php foreach ($buscar as $bit):?>
+              <?php  if($bit->BIT_ESTADO == 'Enviada'){?>
               <tr>
                 <td><?php echo $bit->PER_NOMBRE;?></td>
                 <td><?php echo $bit->PRA_TIPO;?></td>
@@ -53,9 +70,7 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
                               <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->PRA_ID"); ?>">Editar Bitácora</a>
                             </li>
 
-                            <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->PRA_ID"); ?>">Eliminar Bitácora</a>
-                            </li>
+                             <li data-toggle="modal" data-target="#questionDelete<?php echo $bit->BIT_ID?>"><a>Eliminar Bitácora</a></li>
                           </ul>
                          
                         </div> 
@@ -63,6 +78,29 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
                 </td>
                
               </tr>
+                <!--modal-->
+
+                <div class="modal fade" id="questionDelete<?php echo $bit->BIT_ID?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Eliminar Bitácora</h4>
+                  </div>
+                  <div class="modal-body">
+                    Desea realmente eliminar La Bitácora 
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->BIT_ID"); ?>'">Eliminar de todas Formas</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Fin de Modal-->
+               
+              </tr>
+              <?php } ?>
               <?php endforeach; ?>
           </tbody>
         </table>
@@ -87,6 +125,8 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
             <tr>
               <th>Título</th>
               <th>Contenido</th>
+              <th>Estado</th>
+              <th>Editar</th>
             </tr>
           </thead>
           <tbody>
@@ -95,6 +135,25 @@ $form = $this->beginWidget('bootstrap.widgets.BsActiveForm', array(
                 <tr>                  
                   <td><?php echo $bit->BIT_TITULO;?></td>
                   <td><?php echo $bit->BIT_CONTENIDO;?></td>
+                  <td><?php echo $bit->BIT_ESTADO;?></td>
+                  <td>
+                    <?php if($bit->BIT_ESTADO == 'No enviada') {?>
+                    <div class="btn-group">
+                        <div class="input-group">
+                          <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span>
+                          </button>
+
+                          <ul class="dropdown-menu pull-right">
+                            <li> 
+                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->BIT_ID"); ?>">Editar Bitácora</a>
+                            </li>
+                          </ul>
+                         
+                        </div> 
+                    </div>
+                    <?php } ?>
+                </td>
                 </tr>
                 <?php } ?>
                 <?php endforeach; ?>
