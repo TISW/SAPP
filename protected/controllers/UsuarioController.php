@@ -22,7 +22,7 @@ class UsuarioController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', 
-				'actions'=>array('crear','administrar','editar'),
+				'actions'=>array('crear','administrar','editar','eliminar'),
 				'users'=>array('admin','profesor'),
 			),
 			array('allow', 
@@ -144,8 +144,8 @@ class UsuarioController extends Controller
 			$nuevo->attributes=$_POST['Usuario'];
 			if($nuevo->USU_PASSWORD!='')
 			{
-				if (strlen($user->USU_PASSWORD)>=5) {
-				$user->USU_PASSWORD=md5($user->USU_PASSWORD);
+				if (strlen($nuevo->USU_PASSWORD)>=5) {
+				$user->USU_PASSWORD=md5($nuevo->USU_PASSWORD);
 			}
 			}
 			$user->USU_MODIFIED=date('Y-m-d H:i:s');

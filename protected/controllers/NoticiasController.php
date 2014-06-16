@@ -33,7 +33,7 @@ class NoticiasController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','AgregarNoticia','AdministrarNoticia','OfrecerNoticia','eliminarOfrecimiento','eliminar'),
-				'users'=>array('@'),
+				'users'=>array('admin','profesor'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -127,12 +127,12 @@ class NoticiasController extends Controller
 	public function actionEliminar($id)
 	{
 		if(ofrece::model()->exists("NOT_ID=$id")){
-			Yii::app()->user->setFlash('error',BsHtml::alert(BsHtml::ALERT_COLOR_DANGER, BsHtml::bold('Error al Eliminar ') . 'La que intento eliminar, se encuentra ofrecida a una o mas carreras.'));
+			Yii::app()->user->setFlash('error',BsHtml::alert(BsHtml::ALERT_COLOR_DANGER, BsHtml::bold('Error al Eliminar ') . 'La noticia se encuentra ofrecida a una o mas carreras.'));
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('AdministrarNoticia'));
 		}
 		else{
 			$this->loadModel($id)->delete();
-			Yii::app()->user->setFlash('error',BsHtml::alert(BsHtml::ALERT_COLOR_SUCCESS, BsHtml::bold('Éxito al eliminar ') . 'La noticia se ha eliminado con exito.'));
+			Yii::app()->user->setFlash('error',BsHtml::alert(BsHtml::ALERT_COLOR_SUCCESS, BsHtml::bold('Éxito al eliminar ') . 'La noticia se ha eliminado con éxito.'));
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('AdministrarNoticia'));
 		}
 	}
