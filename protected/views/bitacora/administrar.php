@@ -66,14 +66,32 @@ $('.search-button').click(function(){
                               <a href="<?php echo Yii::app()->createUrl("Bitacora/Editar/$bit->BIT_ID"); ?>">Editar Bitácora</a>
                             </li>
 
-                            <li> 
-                              <a href="<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->BIT_ID"); ?>">Eliminar Bitácora</a>
-                            </li>
+                            <li data-toggle="modal" data-target="#questionDelete<?php echo $bit->BIT_ID?>"><a>Eliminar Bitácora</a></li>
                           </ul>
                          
                         </div> 
                     </div>
                 </td>
+                <!--modal-->
+
+                <div class="modal fade" id="questionDelete<?php echo $bit->BIT_ID?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Eliminar Bitácora</h4>
+                  </div>
+                  <div class="modal-body">
+                    Desea realmente eliminar La Bitácora 
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='<?php echo Yii::app()->createUrl("Bitacora/Eliminar/$bit->BIT_ID"); ?>'">Eliminar de todas Formas</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Fin de Modal-->
                
               </tr>
               <?php } ?>
