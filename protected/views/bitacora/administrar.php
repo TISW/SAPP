@@ -162,5 +162,5 @@ $('.search-button').click(function(){
           </table> 
         </div>
 <?php } ?>
-<?php echo $form->errorSummary($bit); ?>
+<?php //echo $form->errorSummary($bit); ?>
 <?php $this->endWidget();?>
